@@ -51,7 +51,7 @@ class AssetHelper {
       serviceName: 'asset',
       method: 'get_balance',
       payload: utils.safeStringifyJSON({
-        user: utils.toHex(address),
+        user: address,
         asset_id: utils.toHex(assetId),
       }),
     });
