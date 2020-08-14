@@ -1,8 +1,10 @@
 require('@muta-extra/hermit-purple').loadEnvFile();
 
 import { envNum, extendService, makeSchema } from '@muta-extra/hermit-purple';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
+import express from 'express';
 import path from 'path';
+import { gateTransfer } from './gateway/gateTransfer';
 import { types } from './schema';
 import { HuobiService } from './service';
 
@@ -21,8 +23,12 @@ const server = new ApolloServer({
 });
 
 const port = envNum('HERMIT_PORT', 4040);
+const app = express();
 
-server.listen({ port }, () =>
+gateTransfer(app);
+server.applyMiddleware({ app });
+
+app.listen({ port }, () =>
   console.log(
     `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`,
   ),

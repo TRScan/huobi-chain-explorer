@@ -1,0 +1,12 @@
+{
+  "name": "Huobi-Chain Graphql Schema",
+  "schemaPath": "huobi-chain.graphql",
+  "extensions": {
+    "endpoints": {
+      "Huobi-Chain GraphQL Endpoint": {
+        "url": "http://localhost:8000/graphql",
+        "introspect": false
+      }
+    }
+  }
+}
