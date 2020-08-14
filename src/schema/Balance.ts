@@ -26,7 +26,7 @@ export const Balance = schema.objectType({
     t.field('asset', {
       type: 'Asset',
       async resolve(parent, args, ctx) {
-        return (await ctx.assetService.findByAssetId(args.assetId))!;
+        return (await ctx.assetService.findByAssetId(parent.assetId))!;
       },
     });
 
