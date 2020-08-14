@@ -1,4 +1,4 @@
-import { KnexHelper } from '@muta-extra/hermit-purple';
+import { KnexHelper, logger } from '@muta-extra/hermit-purple';
 import { utils } from '@mutadev/muta-sdk';
 import { Address, Hash, Uint64 } from '@mutadev/types';
 import BigNumber from 'bignumber.js';
@@ -8,6 +8,13 @@ import { client } from '../muta';
 import { Asset } from '../types';
 
 BigNumber.config({ EXPONENTIAL_AT: 18 });
+
+interface Balance {
+  // hex formatted balance
+  value: string;
+  // hex formatted amount
+  amount?: string;
+}
 
 export function toAmount(value: string, precision: number | BigNumber) {
   precision = new BigNumber(precision).toNumber();
@@ -46,7 +53,11 @@ class AssetHelper {
       .toString();
   }
 
-  async getBalance(assetId: Hash, address: Address, withAmount: boolean) {
+  async getBalance(
+    assetId: Hash,
+    address: Address,
+    withAmount: boolean,
+  ): Promise<Balance> {
     const res = await client.queryService({
       serviceName: 'asset',
       method: 'get_balance',
@@ -56,7 +67,20 @@ class AssetHelper {
       }),
     });
 
-    const value = utils.safeParseJSON(res.succeedData);
+    if (Number(res.code) !== 0) {
+      logger.info(
+        `balance not found, address_id: ${assetId}. address: ${address} - ${res.code} : ${res.errorMessage}`,
+      );
+
+      return {
+        value: '0x00',
+        amount: '0',
+      };
+    }
+
+    const value = utils.toHex(
+      utils.safeParseJSON(res.succeedData)?.balance as number,
+    );
     if (!withAmount) {
       return { value };
     }

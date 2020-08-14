@@ -9,10 +9,13 @@ export const Balance = schema.objectType({
       type: 'Uint64',
       description: 'Uint64 balance',
       async resolve(parent) {
-        return (
-          (await helper.getBalance(parent.assetId, parent.address, true))
-            ?.value! ?? '0'
+        const balance = await helper.getBalance(
+          parent.assetId,
+          parent.address,
+          true,
         );
+
+        return balance?.value! ?? '0';
       },
     });
 
@@ -29,10 +32,12 @@ export const Balance = schema.objectType({
 
     t.string('amount', {
       async resolve(parent) {
-        return (
-          (await helper.getBalance(parent.assetId, parent.address, true))
-            ?.amount! ?? '0'
+        const balance = await helper.getBalance(
+          parent.assetId,
+          parent.address,
+          true,
         );
+        return balance?.amount! ?? '0';
       },
     });
   },
