@@ -8,14 +8,14 @@
   "scripts": {
     "start": "node dist/server",
     "clean": "rm -rf lib",
-    "build": "npm -s run clean && npm -s run generate && tsc --skipLibCheck",
+    "build": "npm -s run clean && npm -s run generate && tsc --skipLibCheck && ts-node src/scripts/build.ts",
     "generate": "npm run generate:mysql-schemats && npm run generate:nexus",
     "generate:docs": "graphql-markdown --heading-level 2 src/generated/schema.graphql > docs/schema.md",
     "generate:nexus": "dotenv -- ts-node --transpile-only src/scripts/make-schema-types.ts",
     "generate:mysql-schemats": "dotenv -- ts-node --transpile-only src/scripts/generate-schema.ts",
     "test": "jest",
     "test:watch": "jest --watch",
-    "dev:server": "dotenv -- ts-node-dev -r tsconfig-paths/register --no-notify --respawn --transpileOnly src/server",
+    "dev:server": "dotenv -- ts-node src/server",
     "dev:sync": "cross-env DEBUG=\"muta:* muta-extra:*\" ts-node --transpile-only src/sync.ts",
     "sync": "node dist/sync",
     "release:alpha": "standard-version --prerelease alpha",
@@ -53,8 +53,10 @@
     "lru-cache": "^5.1.1"
   },
   "devDependencies": {
+    "@types/ncp": "^2.0.4",
     "cross-env": "^7.0.2",
     "dotenv-cli": "^3.1.0",
+    "ncp": "^2.0.0",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "schemats": "^3.0.3",
