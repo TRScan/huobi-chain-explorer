@@ -70,6 +70,9 @@ HERMIT_MAX_COMPLEXITY=100
 
 # CORS origin, empty to disable CORS
 HERMIT_CORS_ORIGIN=
+
+# bypass transfer transaction
+BYPASS_URL=/chain
 ```
 
 ## Build this project
@@ -95,7 +98,7 @@ Also we can drop the database
 npm run migrate migration:down
 ```
 
-### By  DDL
+### By DDL
 
 Using the [schema.sql](./schema.sql)
 
