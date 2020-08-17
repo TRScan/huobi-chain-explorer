@@ -43,7 +43,10 @@ class AssetHelper {
     return asset;
   }
 
-  async amountByAssetIdAndValue(assetId: Hash, value: Uint64) {
+  async amountByAssetIdAndValue(
+    assetId: Hash,
+    value: Uint64 | number | BigNumber,
+  ) {
     const asset = await this.getDBAsset(assetId);
     if (!asset) return '0';
 

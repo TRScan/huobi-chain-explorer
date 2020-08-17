@@ -148,6 +148,7 @@ type Transfer {
   amount: String!
   asset: Asset
   block: Int!
+  fee: Uint64!
   from: Address!
 
   """A datetime string format as UTC string"""

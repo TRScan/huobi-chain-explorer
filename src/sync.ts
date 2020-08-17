@@ -13,10 +13,12 @@ createSynchronizer({
     const trx = ctx.trx;
     const transactions = executed.getTransactions();
     const receipts = executed.getReceipts();
+    const events = executed.getEvents();
 
     const resolver = new TransactionResolver({
       transactions,
       receipts,
+      events,
       height: executed.height(),
       timestamp: executed.getBlock().timestamp,
     });

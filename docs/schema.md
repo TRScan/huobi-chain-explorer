@@ -174,7 +174,7 @@
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>transfers</strong></td>
-<td valign="top">[<a href="#transfer">Transfer</a>!]!</td>
+<td valign="top">[<a href="#transfer">Transfer</a>!]</td>
 <td></td>
 </tr>
 <tr>
@@ -244,11 +244,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td colspan="2" valign="top"><strong>amount</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
-<td></td>
-</tr>
 <tr>
 <td colspan="2" valign="top"><strong>assetId</strong></td>
 <td valign="top"><a href="#hash">Hash</a>!</td>
@@ -564,11 +559,6 @@ Cycles price, similar to the `gasPrice` in eth
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>from</strong></td>
-<td valign="top"><a href="#address">Address</a>!</td>
-<td></td>
-</tr>
-<tr>
 <td colspan="2" valign="top"><strong>method</strong></td>
 <td valign="top"><a href="#string">String</a>!</td>
 <td>
@@ -612,6 +602,11 @@ Public key of of a transaction sender
 <tr>
 <td colspan="2" valign="top"><strong>receipt</strong></td>
 <td valign="top"><a href="#receipt">Receipt</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>sender</strong></td>
+<td valign="top"><a href="#address">Address</a>!</td>
 <td></td>
 </tr>
 <tr>
@@ -663,7 +658,7 @@ The transaction hash
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>asset</strong></td>
-<td valign="top"><a href="#asset">Asset</a>!</td>
+<td valign="top"><a href="#asset">Asset</a></td>
 <td></td>
 </tr>
 <tr>
@@ -672,13 +667,13 @@ The transaction hash
 <td></td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>from</strong></td>
-<td valign="top"><a href="#address">Address</a>!</td>
+<td colspan="2" valign="top"><strong>fee</strong></td>
+<td valign="top"><a href="#uint64">Uint64</a>!</td>
 <td></td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>id</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td colspan="2" valign="top"><strong>from</strong></td>
+<td valign="top"><a href="#address">Address</a>!</td>
 <td></td>
 </tr>
 <tr>
@@ -726,20 +721,20 @@ A datetime string format as UTC string
 </thead>
 <tbody>
 <tr>
-<td colspan="2" valign="top"><strong>address</strong></td>
-<td valign="top"><a href="#address">Address</a>!</td>
-<td>
-
-A validator address
-
-</td>
-</tr>
-<tr>
 <td colspan="2" valign="top"><strong>proposeWeight</strong></td>
 <td valign="top"><a href="#int">Int</a>!</td>
 <td>
 
 Propose weight of a validator
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>pubkey</strong></td>
+<td valign="top"><a href="#bytes">Bytes</a>!</td>
+<td>
+
+A validator public key
 
 </td>
 </tr>

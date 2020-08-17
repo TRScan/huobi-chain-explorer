@@ -195,6 +195,7 @@ export namespace TransferFields {
     export type amount = string;
     export type block = number;
     export type timestamp = string;
+    export type fee = string;
 
 }
 
@@ -208,5 +209,6 @@ export interface Transfer {
     amount: TransferFields.amount;
     block: TransferFields.block;
     timestamp: TransferFields.timestamp;
+    fee: TransferFields.fee;
 
 }

@@ -1,17 +1,36 @@
-import { ReceiptModel, TransactionModel } from '@muta-extra/hermit-purple';
+import {
+  EventModel,
+  ReceiptModel,
+  TransactionModel,
+} from '@muta-extra/hermit-purple';
 import { utils } from '@mutadev/muta-sdk';
 import { Uint64 } from '@mutadev/types';
 import BigNumber from 'bignumber.js';
 import { helper } from '../helpers/AssetHelper';
 import { Account, Asset, Balance, Transfer } from '../types';
+import { FeeResolver } from './FeeResolver';
 
 type TransactionWithoutOrder = Omit<TransactionModel, 'order'>;
+
+interface MintAssetPayload {
+  asset_id: string;
+  to: string;
+  amount: number | BigNumber;
+  proof: string;
+  memo: string;
+}
+
+interface BurnPayload {
+  asset_id: string;
+  amount: number | BigNumber;
+}
 
 interface TransactionResolverOptions {
   height: number;
   timestamp: Uint64;
   transactions: TransactionWithoutOrder[];
   receipts: ReceiptModel[];
+  events: EventModel[];
 }
 
 export class TransactionResolver {
@@ -25,6 +44,8 @@ export class TransactionResolver {
 
   private readonly balances: Balance[];
 
+  private readonly events: EventModel[];
+
   private readonly accounts: Set<string>;
 
   /**
@@ -36,11 +57,12 @@ export class TransactionResolver {
   private readonly timestamp: string;
 
   constructor(options: TransactionResolverOptions) {
-    const { transactions, receipts, height, timestamp } = options;
+    const { transactions, receipts, height, timestamp, events } = options;
     this.height = height;
     this.timestamp = timestamp;
     this.txs = transactions;
     this.receipts = receipts;
+    this.events = events;
 
     this.transfers = [];
     this.assets = [];
@@ -78,7 +100,7 @@ export class TransactionResolver {
     this.assets.push(asset);
   }
 
-  private async enqueueBalance(address: string, assetId: string) {
+  private enqueueBalance(address: string, assetId: string) {
     this.accounts.add(address);
     if (this.balanceTask.has(address + assetId)) {
       return;
@@ -94,8 +116,35 @@ export class TransactionResolver {
     });
   }
 
+  private async assembleTransfer(
+    payload: {
+      asset_id: string;
+      to: string;
+      value: string | number | BigNumber;
+    },
+    from: string,
+    txHash: string,
+    feeResolver: FeeResolver,
+  ): Promise<Transfer> {
+    return {
+      asset: utils.toHex(payload.asset_id),
+      from: from,
+      to: payload.to,
+      txHash,
+      value: utils.toHex(payload.value),
+      block: this.height,
+      timestamp: this.timestamp,
+      amount: await helper.amountByAssetIdAndValue(
+        payload.asset_id,
+        payload.value,
+      ),
+      fee: feeResolver.feeByTxHash(txHash),
+    };
+  }
+
   private async walk() {
-    const { txs, receipts } = this;
+    const { txs, receipts, events } = this;
+    const feeResolver = new FeeResolver(events);
 
     const len = txs.length;
 
@@ -110,27 +159,10 @@ export class TransactionResolver {
       if (receipt.isError || serviceName !== 'asset') return;
 
       if (method === 'transfer') {
-        const payload = utils.safeParseJSON(
-          payloadStr /*{
-          asset_id: SourceDataType.Hash,
-          to: SourceDataType.Address,
-          value: SourceDataType.u64,
-        }*/,
+        const payload = utils.safeParseJSON(payloadStr);
+        this.enqueueTransfer(
+          await this.assembleTransfer(payload, from, txHash, feeResolver),
         );
-
-        this.enqueueTransfer({
-          asset: utils.toHex(payload.asset_id),
-          from,
-          to: payload.to,
-          txHash,
-          value: utils.toHex(payload.value),
-          block: this.height,
-          timestamp: this.timestamp,
-          amount: await helper.amountByAssetIdAndValue(
-            payload.asset_id,
-            payload.value,
-          ),
-        });
 
         this.enqueueBalance(from, payload.asset_id);
         this.enqueueBalance(payload.to, payload.asset_id);
@@ -139,23 +171,48 @@ export class TransactionResolver {
       if (method === 'transfer_from') {
         const payload = utils.safeParseJSON(payloadStr);
 
-        this.enqueueTransfer({
-          asset: utils.toHex(payload.asset_id),
-          from,
-          to: payload.recipient,
-          txHash,
-          value: utils.toHex(payload.value),
-          block: this.height,
-          timestamp: this.timestamp,
-          amount: await helper.amountByAssetIdAndValue(
-            payload.asset_id,
-            payload.value,
-          ),
-        });
+        this.enqueueTransfer(
+          await this.assembleTransfer(payload, from, txHash, feeResolver),
+        );
 
         this.enqueueBalance(from, payload.asset_id);
         this.enqueueBalance(payload.recipient, payload.asset_id);
         this.enqueueBalance(payload.sender, payload.asset_id);
+      }
+
+      if (method === 'mint') {
+        const payload: MintAssetPayload = utils.safeParseJSON(payloadStr);
+
+        this.enqueueTransfer(
+          await this.assembleTransfer(
+            {
+              asset_id: payload.asset_id,
+              to: payload.to,
+              value: payload.amount,
+            },
+            from,
+            txHash,
+            feeResolver,
+          ),
+        );
+
+        this.enqueueBalance(from, payload.asset_id);
+        this.enqueueBalance(payload.to, payload.asset_id);
+      }
+
+      if (method === 'burn') {
+        const payload: BurnPayload = utils.safeParseJSON(payloadStr);
+
+        this.enqueueTransfer(
+          await this.assembleTransfer(
+            { to: '', value: payload.amount, asset_id: payload.asset_id },
+            from,
+            txHash,
+            feeResolver,
+          ),
+        );
+
+        this.enqueueBalance(from, payload.asset_id);
       }
 
       if (method === 'create_asset') {

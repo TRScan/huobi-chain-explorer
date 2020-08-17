@@ -64,6 +64,10 @@ export class HuobiMigration001 extends Migration001 {
         table
           .specificType('timestamp', 'varchar(18) NOT NULL')
           .comment('Block timestamp');
+
+        table
+          .specificType('fee', 'varchar(18) NOT NULL')
+          .comment('transfer fee');
       })
       .createTable(BALANCE, (table) => {
         table.bigIncrements('id');

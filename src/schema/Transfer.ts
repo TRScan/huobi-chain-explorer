@@ -33,6 +33,8 @@ export const Transfer = schema.objectType({
 
     t.field('to', { type: 'Address' });
 
+    t.field('fee', { type: 'Uint64', description: 'transaction fee' });
+
     t.string('amount');
 
     t.field('asset', {
