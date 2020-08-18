@@ -6,7 +6,8 @@
     "hermit-start-server": "npm start"
   },
   "scripts": {
-    "start": "node dist/server",
+    "start": "dotenv -- node dist/server",
+    "sync": "dotenv -- node dist/sync",
     "clean": "rm -rf lib",
     "build": "npm -s run clean && npm -s run generate && tsc --skipLibCheck && ts-node src/scripts/build.ts",
     "generate": "npm run generate:mysql-schemats && npm run generate:nexus",
@@ -17,7 +18,6 @@
     "test:watch": "jest --watch",
     "dev:server": "dotenv -- ts-node src/server",
     "dev:sync": "cross-env DEBUG=\"muta:* muta-extra:*\" ts-node --transpile-only src/sync.ts",
-    "sync": "node dist/sync",
     "release:alpha": "standard-version --prerelease alpha",
     "migrate": "ts-node --transpile-only src/scripts/migrate.ts"
   },
