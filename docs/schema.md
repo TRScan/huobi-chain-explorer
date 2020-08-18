@@ -559,6 +559,11 @@ Cycles price, similar to the `gasPrice` in eth
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>fee</strong></td>
+<td valign="top"><a href="#uint64">Uint64</a>!</td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>method</strong></td>
 <td valign="top"><a href="#string">String</a>!</td>
 <td>
@@ -628,6 +633,11 @@ Signature of a transaction
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>timestamp</strong></td>
+<td valign="top"><a href="#timestamp">Timestamp</a>!</td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>txHash</strong></td>
 <td valign="top"><a href="#hash">Hash</a>!</td>
 <td>
@@ -669,7 +679,11 @@ The transaction hash
 <tr>
 <td colspan="2" valign="top"><strong>fee</strong></td>
 <td valign="top"><a href="#uint64">Uint64</a>!</td>
-<td></td>
+<td>
+
+transaction fee
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>from</strong></td>

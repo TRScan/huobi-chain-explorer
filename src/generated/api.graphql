@@ -118,6 +118,7 @@ type Transaction {
 
   """Cycles price, similar to the `gasPrice` in eth"""
   cyclesPrice: Uint64!
+  fee: Uint64!
 
   """Represents what `method` does the transaction called """
   method: String!
@@ -139,6 +140,7 @@ type Transaction {
 
   """Signature of a transaction"""
   signature: Bytes!
+  timestamp: Timestamp!
 
   """The transaction hash"""
   txHash: Hash!
@@ -148,6 +150,8 @@ type Transfer {
   amount: String!
   asset: Asset
   block: Int!
+
+  """transaction fee"""
   fee: Uint64!
   from: Address!
 

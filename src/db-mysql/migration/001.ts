@@ -10,6 +10,10 @@ export class HuobiMigration001 extends Migration001 {
   up() {
     return super
       .up()
+      .alterTable('transaction', (table) => {
+        table.specificType('fee', 'varchar(18) NOT NULL');
+        table.specificType('timestamp', 'varchar(18) NOT NULL');
+      })
       .createTable(ASSET, (table) => {
         table.increments('id');
 
