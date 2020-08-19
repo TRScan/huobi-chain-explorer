@@ -163,6 +163,8 @@ export namespace TransactionFields {
     export type signature = string;
     export type timeout = string;
     export type txHash = string;
+    export type fee = string;
+    export type timestamp = string;
 
 }
 
@@ -182,6 +184,8 @@ export interface Transaction {
     signature: TransactionFields.signature;
     timeout: TransactionFields.timeout;
     txHash: TransactionFields.txHash;
+    fee: TransactionFields.fee;
+    timestamp: TransactionFields.timestamp;
 
 }
 

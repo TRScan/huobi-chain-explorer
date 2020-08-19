@@ -56,10 +56,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@muta-extra/common@^0.4.0-dev.7":
-  version "0.4.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@muta-extra/common/-/common-0.4.0-dev.7.tgz#29a8d1100501f49c9f3287389898090ee496577a"
-  integrity sha512-vsbfIrkg8dx7J7CgKotmBxLld9uJ7Dy6eLEudfedIadouutZsGy1mxpTXentW8piDEzkH+yT5k+uUTcIy3gb1w==
+"@muta-extra/common@0.4.0-dev.9":
+  version "0.4.0-dev.9"
+  resolved "https://registry.yarnpkg.com/@muta-extra/common/-/common-0.4.0-dev.9.tgz#d0d576dac1bfb98c15f975199974e4393ae40153"
+  integrity sha512-55hxEij37WpBDVd+gW505ywAhcmmxC+QP6QD+V3AsZW4YxghHnF4unXL8QKmfHvQn3iIDRcrRyClO97TzzVIFg==
   dependencies:
     "@types/debug" "^4.1.5"
     commander "^5.1.0"
@@ -67,24 +67,24 @@
     dotenv "^8.2.0"
     read-pkg-up "^7.0.1"
 
-"@muta-extra/hermit-purple@0.4.0-dev.7":
-  version "0.4.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@muta-extra/hermit-purple/-/hermit-purple-0.4.0-dev.7.tgz#8f9fed612a242cfcf7d57291c8274809a5859cf1"
-  integrity sha512-cLHeUv+MGueqta61OhHPHhFZl5VqhPD5LU1fmr+Fat6j4JCu1G7UX1KdvMw5KFuJ6XfL7nciiYMbDpMrewT1MQ==
+"@muta-extra/hermit-purple@0.4.0-dev.9":
+  version "0.4.0-dev.9"
+  resolved "https://registry.yarnpkg.com/@muta-extra/hermit-purple/-/hermit-purple-0.4.0-dev.9.tgz#36f6513f82021216b7ccf7ebfbf4d662f06b75c5"
+  integrity sha512-Mf/GEmlJBBHOmJUpDPluLaMYn1RPhtGAwwco122pzclJ7YZGOYxFJ9sguXf1dpmTnSR3dl3SsKEly9egSDY6sQ==
   dependencies:
-    "@muta-extra/common" "^0.4.0-dev.7"
-    "@muta-extra/knex-mysql" "^0.4.0-dev.7"
-    "@muta-extra/nexus-schema" "^0.4.0-dev.7"
-    "@muta-extra/synchronizer" "^0.4.0-dev.7"
+    "@muta-extra/common" "0.4.0-dev.9"
+    "@muta-extra/knex-mysql" "0.4.0-dev.9"
+    "@muta-extra/nexus-schema" "0.4.0-dev.9"
+    "@muta-extra/synchronizer" "0.4.0-dev.9"
     schemats "^3.0.3"
 
-"@muta-extra/knex-mysql@^0.4.0-dev.7":
-  version "0.4.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@muta-extra/knex-mysql/-/knex-mysql-0.4.0-dev.7.tgz#d5343bd1dc657ccf3da035be2e74de25a508e507"
-  integrity sha512-ZCdeHlHkSiEdI9KLsmouUpoiwZNRdwQ2+0o6/efiX4zp687psluhm7nGrXal46IVMjZ9nyhHKyI44ClL5fMFtg==
+"@muta-extra/knex-mysql@0.4.0-dev.9":
+  version "0.4.0-dev.9"
+  resolved "https://registry.yarnpkg.com/@muta-extra/knex-mysql/-/knex-mysql-0.4.0-dev.9.tgz#c6b49073931a957e24ec9a5fce7623ddc93fe6a0"
+  integrity sha512-gvehymlb59AZBfjeXMu3v3cejp/mmdlZ3CmL1h7sNp5hUFqmFwkX34iKD01752+u6tDK5aTgmVIZj3e2Y8fiPg==
   dependencies:
-    "@muta-extra/common" "^0.4.0-dev.7"
-    "@muta-extra/synchronizer" "^0.4.0-dev.7"
+    "@muta-extra/common" "0.4.0-dev.9"
+    "@muta-extra/synchronizer" "0.4.0-dev.9"
     "@types/cache-manager" "^2.10.3"
     "@types/lodash" "^4.14.158"
     cache-manager "^3.3.0"
@@ -98,20 +98,20 @@
     node-object-hash "^2.0.0"
     read-pkg-up "^7.0.1"
 
-"@muta-extra/nexus-schema@^0.4.0-dev.7":
-  version "0.4.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@muta-extra/nexus-schema/-/nexus-schema-0.4.0-dev.7.tgz#ef47995aa91c909b29a212ccd41ed1bac09b9f4f"
-  integrity sha512-McsEXCrEseEgnF/0FiRlvaEzcNamTOYbXa8ffohopFjIlficFf9MeaB2BSZhnH+QpRpZbyIvT6xGUCeH/U4Y+Q==
+"@muta-extra/nexus-schema@0.4.0-dev.9":
+  version "0.4.0-dev.9"
+  resolved "https://registry.yarnpkg.com/@muta-extra/nexus-schema/-/nexus-schema-0.4.0-dev.9.tgz#c28d4652f6700fa9af0ecc5c0918ffe15825484b"
+  integrity sha512-+JnAGBbiDbdzH2zu56OB2DH6soNBOoaG3LWrKIUH9yVbfDRrY03YAiIBDLmcJw+ojcBtvGmx2KYu/qnsgFD26Q==
   dependencies:
-    "@muta-extra/common" "^0.4.0-dev.7"
-    "@nexus/schema" "^0.14.0"
+    "@muta-extra/common" "0.4.0-dev.9"
+    "@nexus/schema" "^0.15.0"
 
-"@muta-extra/synchronizer@^0.4.0-dev.7":
-  version "0.4.0-dev.7"
-  resolved "https://registry.yarnpkg.com/@muta-extra/synchronizer/-/synchronizer-0.4.0-dev.7.tgz#efcf8130bb3a574020e9ea43683a2f5f31e0a5e2"
-  integrity sha512-/e2m56YK1eu6/VNF09DG78jmLUSZkxI403ClhH4hcSWbicJqUTojpEd+S96wC1248b6Z16N3R6iIQsbCZI9VLw==
+"@muta-extra/synchronizer@0.4.0-dev.9":
+  version "0.4.0-dev.9"
+  resolved "https://registry.yarnpkg.com/@muta-extra/synchronizer/-/synchronizer-0.4.0-dev.9.tgz#2ded2a6a17f88adcaa59dbee240ed268a41869a9"
+  integrity sha512-mEPR9UYl9bgX8B7bqZpkOajwur6sVLTSyIYLhSpGO/4sPo2dDr5d2X1X7zxZT2pkhXlFkgYB8y9BrR22Fgy47g==
   dependencies:
-    "@muta-extra/common" "^0.4.0-dev.7"
+    "@muta-extra/common" "0.4.0-dev.9"
     "@types/bluebird" "^3.5.32"
     "@types/lodash" "^4.14.158"
     "@types/lossless-json" "^1.0.0"
@@ -214,10 +214,10 @@
     bip39 "^3.0.2"
     hdkey "^1.1.1"
 
-"@nexus/schema@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@nexus/schema/-/schema-0.14.0.tgz#3242f4d02ec9458914deb638b434bcfbd5888d2e"
-  integrity sha512-niJFcOm1F2s3kwj+j3ips4sIIJaTNh5Auq+zcHwOsRBqSYsFJnA/8QUKMb1wjVIEqS+Jl71Sj4xFdg3/njlm9A==
+"@nexus/schema@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@nexus/schema/-/schema-0.15.0.tgz#4f444417a1163a09d732e5b3b203f22780f4ae63"
+  integrity sha512-Q3JYHlxvQ24z5vGfDbEOT7Q+zIFYvnuPv14jNdQ/KCRk6YQODPD/nSQilfFJW+9CBIhZhWZACjbeALRKFLCwjg==
   dependencies:
     iterall "^1.2.2"
     tslib "^1.9.3"
@@ -437,9 +437,9 @@
   integrity sha512-vEcX7S7aPhsBCivxMwAANQburHBtfN9RdyXFk84IJmu2Z4Hkg1tOFgaslRiEqqvoLtbCBi6ika1EMspE+NZ9Lg==
 
 "@types/lodash@^4.14.158":
-  version "4.14.158"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.158.tgz#b38ea8b6fe799acd076d7a8d7ab71c26ef77f785"
-  integrity sha512-InCEXJNTv/59yO4VSfuvNrZHt7eeNtWQEgnieIA+mIC+MOWM9arOWG2eQ8Vhk6NbOre6/BidiXhkZYeDY9U35w==
+  version "4.14.159"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.159.tgz#61089719dc6fdd9c5cb46efc827f2571d1517065"
+  integrity sha512-gF7A72f7WQN33DpqOWw9geApQPh4M3PxluMtaHxWHXEGSN12/WbcEk/eNSqWNQcQhF66VSZ06vCF94CrHwXJDg==
 
 "@types/long@^4.0.0":
   version "4.0.1"
@@ -2342,20 +2342,20 @@ kind-of@^6.0.0, kind-of@^6.0.2:
 
 knex-on-duplicate-update@^1.1.3:
   version "1.1.3"
-  resolved "https://registry.npmjs.org/knex-on-duplicate-update/-/knex-on-duplicate-update-1.1.3.tgz#eea5c70b1e301a274b84565a9b065d8a724cc2de"
+  resolved "https://registry.yarnpkg.com/knex-on-duplicate-update/-/knex-on-duplicate-update-1.1.3.tgz#eea5c70b1e301a274b84565a9b065d8a724cc2de"
   integrity sha512-LXqONZRhJ4aFnASb/AXuOS2pY4tQh3n2dYMr5kSeKE30ytk91z3MqFBKqO8qe+KS95W0c9DkPS7eVFKH63VxRg==
 
 knex-stringcase@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/knex-stringcase/-/knex-stringcase-1.4.1.tgz#350db680722cc4b913372dd1eb42debaebb3f46d"
-  integrity sha512-fOMSZP38NxbduKYeOSNeCHch/IjsLtvzRVNeXVfmzmCgW3mMNFdS+UFQJU0jNj1PunmO1M5/chSWJIljV/HD7Q==
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/knex-stringcase/-/knex-stringcase-1.4.2.tgz#7b1e258b874c1fd42416355680153fd07582fe9e"
+  integrity sha512-LxDAFnQhXT4JVyVs95Xk8nl/MLmMM1+adgJPKAhZZEC2Lr1EHYmffkLdc4knF3fOyhTO2kjqdiFMKBxPwNvXpQ==
   dependencies:
     stringcase "^4.3.1"
 
 knex@^0.21.1:
-  version "0.21.2"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.2.tgz#716e2f515aa55575eb812b4c7f58e532a3de6a12"
-  integrity sha512-hNp9f3yXCHtMrhV2pVsuCNYmPlgXhyqviMQGLBd9zdF03ZqCO9MPng0oYhNMgIs+vDr55VC6tjEbF1OQ1La7Kg==
+  version "0.21.5"
+  resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.5.tgz#c4be1958488f348aed3510aa4b7115639ee1bd01"
+  integrity sha512-cQj7F2D/fu03eTr6ZzYCYKdB9w7fPYlvTiU/f2OeXay52Pq5PwD+NAkcf40WDnppt/4/4KukROwlMOaE7WArcA==
   dependencies:
     colorette "1.2.1"
     commander "^5.1.0"
@@ -2365,7 +2365,7 @@ knex@^0.21.1:
     inherits "~2.0.4"
     interpret "^2.2.0"
     liftoff "3.1.0"
-    lodash "^4.17.19"
+    lodash "^4.17.20"
     mkdirp "^1.0.4"
     pg-connection-string "2.3.0"
     tarn "^3.0.0"
@@ -2439,10 +2439,10 @@ lodash@^4.17.15, lodash@^4.17.4:
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
-lodash@^4.17.19:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
+lodash@^4.17.20:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
 loglevel@^1.6.7:
   version "1.6.8"

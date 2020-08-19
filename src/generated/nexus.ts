@@ -124,6 +124,7 @@ export interface NexusGenFieldTypes {
     block: number; // Int!
     cyclesLimit: string; // Uint64!
     cyclesPrice: string; // Uint64!
+    fee: string; // Uint64!
     method: string; // String!
     nonce: string; // Hash!
     order: number; // Int!
@@ -133,6 +134,7 @@ export interface NexusGenFieldTypes {
     sender: string; // Address!
     serviceName: string; // String!
     signature: string; // Bytes!
+    timestamp: any; // Timestamp!
     txHash: string; // Hash!
   }
   Transfer: { // field return type
