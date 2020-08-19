@@ -1,6 +1,11 @@
 require('@muta-extra/hermit-purple').loadEnvFile();
 
-import { envNum, extendService, makeSchema } from '@muta-extra/hermit-purple';
+import {
+  envNum,
+  envStr,
+  extendService,
+  makeSchema,
+} from '@muta-extra/hermit-purple';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import path from 'path';
@@ -26,7 +31,9 @@ const port = envNum('HERMIT_PORT', 4040);
 const app = express();
 
 gateTransfer(app);
-server.applyMiddleware({ app });
+server.applyMiddleware({
+  app, cors: { origin: envStr('HERMIT_CORS_ORIGIN', '') },
+});
 
 app.listen({ port }, () =>
   console.log(

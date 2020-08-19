@@ -1,6 +1,7 @@
 import { envStr } from '@muta-extra/hermit-purple';
 import { types } from '@mutadev/muta-sdk';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { Express } from 'express';
 import { readFileSync } from 'fs';
 import { buildSchema, parse, validate } from 'graphql';
@@ -21,6 +22,7 @@ export function gateTransfer(
 ) {
   app.use(
     config.path,
+    cors({ origin: envStr('HERMIT_CORS_ORIGIN', '') }),
     bodyParser.json(),
     createProxyMiddleware({
       target: envStr('MUTA_ENDPOINT', 'http://127.0.0.1:8000/graphql'),
