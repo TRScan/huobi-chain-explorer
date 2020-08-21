@@ -1,6 +1,6 @@
 import { EventModel } from '@muta-extra/hermit-purple';
-import { groupBy } from 'lodash';
 import { utils } from '@mutadev/muta-sdk';
+import { groupBy } from 'lodash';
 
 export class FeeResolver {
   readonly #events: EventModel[];
