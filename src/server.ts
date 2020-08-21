@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 require('@muta-extra/hermit-purple').loadEnvFile();
 
 import {
@@ -7,9 +8,11 @@ import {
   makeSchema,
 } from '@muta-extra/hermit-purple';
 import { ApolloServer } from 'apollo-server-express';
+import cors from 'cors';
 import express from 'express';
 import path from 'path';
-import { gateTransfer } from './gateway/gateTransfer';
+import { allowOptions } from './gateway/allow-options';
+import { allowTransfer } from './gateway/allow-transfer';
 import { types } from './schema';
 import { HuobiService } from './service';
 
@@ -30,10 +33,14 @@ const server = new ApolloServer({
 const port = envNum('HERMIT_PORT', 4040);
 const app = express();
 
-gateTransfer(app);
-server.applyMiddleware({
-  app, cors: { origin: envStr('HERMIT_CORS_ORIGIN', '') },
-});
+const origin = envStr('HERMIT_CORS_ORIGIN', '');
+app.use('/graphql', cors({
+  origin,
+  methods: ['OPTIONS', 'GET', 'POST'],
+}), allowOptions());
+
+allowTransfer(app);
+server.applyMiddleware({ app, cors: { origin } });
 
 app.listen({ port }, () =>
   console.log(

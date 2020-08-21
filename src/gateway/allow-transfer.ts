@@ -7,6 +7,7 @@ import { readFileSync } from 'fs';
 import { buildSchema, parse, validate } from 'graphql';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { join } from 'path';
+import { allowOptions } from './allow-options';
 
 interface Config {
   path: string;
@@ -16,13 +17,17 @@ const schema = buildSchema(
   readFileSync(join(__dirname, 'huobi-chain.graphql')).toString(),
 );
 
-export function gateTransfer(
+export function allowTransfer(
   app: Express,
   config: Config = { path: envStr('BYPASS_URL', '/chain') },
 ) {
   app.use(
     config.path,
-    cors({ origin: envStr('HERMIT_CORS_ORIGIN', '') }),
+    cors({
+      origin: envStr('HERMIT_CORS_ORIGIN', ''),
+      methods: ['OPTIONS', 'POST'],
+    }),
+    allowOptions(),
     bodyParser.json(),
     createProxyMiddleware({
       target: envStr('MUTA_ENDPOINT', 'http://127.0.0.1:8000/graphql'),
