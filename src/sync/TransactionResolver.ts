@@ -109,10 +109,16 @@ export class TransactionResolver {
 
     this.balances.push({
       address,
+      assetId: helper.getNativeAssetId(),
+      balance: '0',
+    });
+
+    this.balances.push({
+      address,
       assetId,
       // Since the balance will be affected by complex calculations such as fees,
       // the balance will be directly obtained on the chain
-      balance: '0x0',
+      balance: '0',
     });
   }
 

@@ -1,7 +1,8 @@
-import { KnexHelper, logger } from '@muta-extra/hermit-purple';
+import { envStr, KnexHelper, logger } from '@muta-extra/hermit-purple';
 import { utils } from '@mutadev/muta-sdk';
 import { Address, Hash, Uint64 } from '@mutadev/types';
 import BigNumber from 'bignumber.js';
+import { AssetService } from 'huobi-chain-sdk';
 import LRUCache from 'lru-cache';
 import { ASSET } from '../db-mysql/constants';
 import { client } from '../muta';
@@ -25,8 +26,25 @@ class AssetHelper {
   private cache: LRUCache<string, Asset>;
   private helper: KnexHelper = new KnexHelper();
 
+  private nativeAssetId: string;
+
+  private readonly assetService: InstanceType<typeof AssetService>;
+
   constructor() {
     this.cache = new LRUCache();
+    this.nativeAssetId = envStr('HUOBI_NATIVE_ASSET_ID', '');
+    this.assetService = new AssetService();
+  }
+
+  async init() {
+    if (!this.nativeAssetId) {
+      const receipt = await this.assetService.read.get_native_asset();
+      this.nativeAssetId = receipt.succeedData.id;
+    }
+  }
+
+  getNativeAssetId(): string {
+    return this.nativeAssetId;
   }
 
   cacheAsset(asset: Asset) {

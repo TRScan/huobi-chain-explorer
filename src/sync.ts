@@ -8,8 +8,8 @@ import {
   ISynchronizerAdapter,
   PollingSynchronizer,
 } from '@muta-extra/synchronizer';
+import { init } from './init';
 import { HuobiSyncEventHandler } from './sync/HuobiSyncEventHandler';
-
 
 const remoteFetcher = new DefaultRemoteFetcher();
 const localFetcher = new DefaultLocalFetcher();
@@ -21,4 +21,9 @@ const adapter: ISynchronizerAdapter = {
   ...eventHandler,
 };
 
-new PollingSynchronizer(adapter).run();
+async function main() {
+  await init();
+  new PollingSynchronizer(adapter).run();
+}
+
+main();
