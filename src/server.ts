@@ -36,11 +36,12 @@ async function main() {
   const port = envNum('HERMIT_PORT', 4040);
   const app = express();
 
-const origin = envStr('HERMIT_CORS_ORIGIN', '');
-app.use('/graphql', cors({
-  origin,
-  methods: ['OPTIONS', 'GET', 'POST'],
-}), allowOptions());
+  const origin = envStr('HERMIT_CORS_ORIGIN', '');
+  app.use(
+    '/graphql',
+    cors({ origin, methods: ['OPTIONS', 'GET', 'POST'] }),
+    allowOptions(),
+  );
 
   applyAllowTransferMiddleware(app);
   server.applyMiddleware({ app, cors: { origin } });

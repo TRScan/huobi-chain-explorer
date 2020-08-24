@@ -17,7 +17,7 @@ const schema = buildSchema(
   readFileSync(join(__dirname, 'huobi-chain.graphql')).toString(),
 );
 
-export function allowTransfer(
+export function applyMiddleware(
   app: Express,
   config: Config = { path: envStr('BYPASS_URL', '/chain') },
 ) {
