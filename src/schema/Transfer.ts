@@ -1,6 +1,5 @@
 import { schema } from '@muta-extra/hermit-purple';
 import { GraphQLError } from 'graphql';
-import { helper } from '../helpers/AssetHelper';
 import { pageArgs } from './common';
 
 export const Transfer = schema.objectType({
@@ -26,8 +25,6 @@ export const Transfer = schema.objectType({
       },
     });
 
-    t.field('value', { type: 'Uint64' });
-
     t.field('txHash', { type: 'Hash' });
 
     t.field('from', { type: 'Address' });
@@ -36,9 +33,22 @@ export const Transfer = schema.objectType({
 
     t.field('fee', { type: 'Uint64', description: 'transaction fee' });
 
+    t.field('value', {
+      type: 'Uint64',
+      deprecation: 'Please replace with `assetAmount`',
+    });
+
     t.string('amount', {
+      deprecation: 'Please replace with `assetAmount`',
+      resolve(parent, args, ctx) {
+        return ctx.assetService.getAmount(parent.asset, parent.value);
+      },
+    });
+
+    t.field('assetAmount', {
+      type: 'AssetAmount',
       resolve(parent) {
-        return helper.amountByAssetIdAndValue(parent.asset, parent.value);
+        return { assetId: parent.asset, value: parent.value };
       },
     });
 

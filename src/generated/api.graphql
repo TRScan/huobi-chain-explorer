@@ -22,13 +22,20 @@ type Asset {
   symbol: String!
 }
 
-type Balance {
-  address: Address!
+type AssetAmount {
   amount: String!
   asset: Asset!
+  value: Uint64
+}
+
+type Balance {
+  address: Address!
+  amount: String! @deprecated(reason: "Please replace with `assetAmount`")
+  asset: Asset!
+  assetAmount: AssetAmount!
 
   """Uint64 balance"""
-  balance: Uint64!
+  balance: Uint64! @deprecated(reason: "Please replace with `assetAmount`")
 }
 
 type Block {
@@ -147,8 +154,9 @@ type Transaction {
 }
 
 type Transfer {
-  amount: String!
+  amount: String! @deprecated(reason: "Please replace with `assetAmount`")
   asset: Asset
+  assetAmount: AssetAmount!
   block: Int!
 
   """transaction fee"""
@@ -160,7 +168,7 @@ type Transfer {
   to: Address!
   transaction: Transaction
   txHash: Hash!
-  value: Uint64!
+  value: Uint64! @deprecated(reason: "Please replace with `assetAmount`")
 }
 
 """Uint64，encoded to a hex string """

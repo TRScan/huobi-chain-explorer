@@ -4,8 +4,9 @@ import {
   QueryManyFn,
   QueryOneFn,
 } from '@muta-extra/hermit-purple';
-import { ASSET, BALANCE, TRANSFER } from './db-mysql/constants';
-import { Asset, Balance, Transfer } from './generated/types';
+import { BALANCE, TRANSFER } from './db-mysql/constants';
+import { Balance, Transfer } from './generated/types';
+import { AssetModelService } from './services';
 
 interface ITransferService {
   findByTxHash: QueryOneFn<Transfer, string>;
@@ -19,21 +20,16 @@ interface IBalanceService {
   filterByAddress: QueryManyFn<Balance, { address: string }>;
 }
 
-interface IAssetService {
-  findByAssetId: QueryOneFn<Asset, string>;
-  filter: QueryManyFn<Asset, {}>;
-}
-
 export interface IHuobiService {
   transferService: ITransferService;
   balanceService: IBalanceService;
-  assetService: IAssetService;
+  assetService: AssetModelService;
 }
 
 export class HuobiService implements IHuobiService {
   transferService: ITransferService;
   balanceService: IBalanceService;
-  assetService: IAssetService;
+  assetService: AssetModelService;
 
   constructor() {
     const helper = new KnexHelper();
@@ -101,17 +97,7 @@ union all
         });
       },
     };
-    this.assetService = {
-      findByAssetId(assetId) {
-        return helper.findOne<Asset>(ASSET, { assetId });
-      },
-      filter(args) {
-        return helper.findMany<Asset>(ASSET, {
-          page: args.pageArgs,
-          orderBy: ['name', 'asc'],
-        });
-      },
-    };
+    this.assetService = new AssetModelService();
   }
 }
 

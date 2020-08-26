@@ -36,6 +36,7 @@ export interface NexusGenScalars {
 export interface NexusGenRootTypes {
   Account: db.Account;
   Asset: db.Asset;
+  AssetAmount: db.AssetAmount;
   Balance: db.Balance;
   Block: { // root type
     blockHash: NexusGenScalars['Hash']; // Hash!
@@ -92,10 +93,16 @@ export interface NexusGenFieldTypes {
     supply: NexusGenScalars['Uint64']; // Uint64!
     symbol: string; // String!
   }
+  AssetAmount: { // field return type
+    amount: string; // String!
+    asset: NexusGenRootTypes['Asset'] | null; // Asset
+    value: NexusGenScalars['Uint64'] | null; // Uint64
+  }
   Balance: { // field return type
     address: NexusGenScalars['Address']; // Address!
     amount: string; // String!
     asset: NexusGenRootTypes['Asset']; // Asset!
+    assetAmount: NexusGenRootTypes['AssetAmount']; // AssetAmount!
     balance: NexusGenScalars['Uint64']; // Uint64!
   }
   Block: { // field return type
@@ -153,6 +160,7 @@ export interface NexusGenFieldTypes {
   Transfer: { // field return type
     amount: string; // String!
     asset: NexusGenRootTypes['Asset'] | null; // Asset
+    assetAmount: NexusGenRootTypes['AssetAmount']; // AssetAmount!
     block: number; // Int!
     fee: NexusGenScalars['Uint64']; // Uint64!
     from: NexusGenScalars['Address']; // Address!
@@ -222,7 +230,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Account" | "Asset" | "Balance" | "Block" | "Event" | "Query" | "Receipt" | "Transaction" | "Transfer" | "Validator";
+export type NexusGenObjectNames = "Account" | "Asset" | "AssetAmount" | "Balance" | "Block" | "Event" | "Query" | "Receipt" | "Transaction" | "Transfer" | "Validator";
 
 export type NexusGenInputNames = never;
 

@@ -1,21 +1,15 @@
 import { schema } from '@muta-extra/hermit-purple';
-import { helper } from '../helpers/AssetHelper';
 import { pageArgs } from './common';
 
 export const Balance = schema.objectType({
   name: 'Balance',
   definition(t) {
     t.field('balance', {
+      deprecation: 'Please replace with `assetAmount`',
       type: 'Uint64',
       description: 'Uint64 balance',
-      async resolve(parent) {
-        const balance = await helper.getBalance(
-          parent.assetId,
-          parent.address,
-          true,
-        );
-
-        return balance?.value! ?? '0';
+      resolve(parent, args, ctx) {
+        return ctx.assetService.getBalance(parent.assetId, parent.address);
       },
     });
 
@@ -31,13 +25,24 @@ export const Balance = schema.objectType({
     });
 
     t.string('amount', {
-      async resolve(parent) {
-        const balance = await helper.getBalance(
+      deprecation: 'Please replace with `assetAmount`',
+      async resolve(parent, args, ctx) {
+        const balance = await ctx.assetService.getBalance(
           parent.assetId,
           parent.address,
-          true,
         );
-        return balance?.amount! ?? '0';
+        return ctx.assetService.getAmount(parent.assetId, balance);
+      },
+    });
+
+    t.field('assetAmount', {
+      type: 'AssetAmount',
+      async resolve(parent, args, ctx) {
+        const balance = await ctx.assetService.getBalance(
+          parent.assetId,
+          parent.address,
+        );
+        return { assetId: parent.assetId, value: balance };
       },
     });
   },

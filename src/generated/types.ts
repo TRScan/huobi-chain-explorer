@@ -20,7 +20,6 @@ export namespace AssetFields {
     export type account = string;
     export type assetId = string;
     export type name = string;
-    export type supply = string;
     export type precision = number;
     export type symbol = string;
     export type txHash = string;
@@ -32,7 +31,6 @@ export interface Asset {
     account: AssetFields.account;
     assetId: AssetFields.assetId;
     name: AssetFields.name;
-    supply: AssetFields.supply;
     precision: AssetFields.precision;
     symbol: AssetFields.symbol;
     txHash: AssetFields.txHash;
@@ -43,7 +41,6 @@ export namespace BalanceFields {
     export type id = number;
     export type address = string;
     export type assetId = string;
-    export type balance = string;
 
 }
 
@@ -51,7 +48,6 @@ export interface Balance {
     id: BalanceFields.id;
     address: BalanceFields.address;
     assetId: BalanceFields.assetId;
-    balance: BalanceFields.balance;
 
 }
 
@@ -196,7 +192,6 @@ export namespace TransferFields {
     export type to = string;
     export type txHash = string;
     export type value = string;
-    export type amount = string;
     export type block = number;
     export type timestamp = string;
     export type fee = string;
@@ -210,7 +205,6 @@ export interface Transfer {
     to: TransferFields.to;
     txHash: TransferFields.txHash;
     value: TransferFields.value;
-    amount: TransferFields.amount;
     block: TransferFields.block;
     timestamp: TransferFields.timestamp;
     fee: TransferFields.fee;
