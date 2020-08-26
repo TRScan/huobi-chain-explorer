@@ -28,6 +28,7 @@ export function applyMiddleware(
       methods: ['OPTIONS', 'POST'],
     }),
     allowOptions(),
+    // TODO unable to transfer large transactions, use safeParseJSON instead
     bodyParser.json(),
     createProxyMiddleware({
       target: envStr('MUTA_ENDPOINT', 'http://127.0.0.1:8000/graphql'),
