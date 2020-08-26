@@ -13,12 +13,10 @@ import express from 'express';
 import path from 'path';
 import { allowOptions } from './gateway/allow-options';
 import { applyMiddleware as applyAllowTransferMiddleware } from './gateway/allow-transfer';
-import { init } from './init';
 import { types } from './schema';
 import { HuobiService } from './service';
 
 async function main() {
-  init();
   const schema = makeSchema({
     types,
     outputs: {
@@ -33,19 +31,21 @@ async function main() {
     context: { ...services },
   });
 
-  const port = envNum('HERMIT_PORT', 4040);
   const app = express();
 
+  // allow CORS for GraphQL
   const origin = envStr('HERMIT_CORS_ORIGIN', '');
   app.use(
     '/graphql',
     cors({ origin, methods: ['OPTIONS', 'GET', 'POST'] }),
     allowOptions(),
   );
-
-  applyAllowTransferMiddleware(app);
   server.applyMiddleware({ app, cors: { origin } });
 
+  // allow proxy transfer
+  applyAllowTransferMiddleware(app);
+
+  const port = envNum('HERMIT_PORT', 4040);
   app.listen({ port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`,
