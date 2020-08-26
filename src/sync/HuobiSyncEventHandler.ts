@@ -9,6 +9,7 @@ import { utils } from '@mutadev/muta-sdk';
 import { BigNumber } from '@mutadev/shared';
 import { ASSET, BALANCE, TRANSFER } from '../db-mysql/constants';
 import { client } from '../muta';
+import { Account, Balance } from '../types';
 import { FeeResolver } from './FeeResolver';
 import { TransactionResolver } from './TransactionResolver';
 
@@ -25,7 +26,6 @@ interface AssetReceipt {
   relayable: boolean;
 }
 
-
 export class HuobiSyncEventHandler extends DefaultSyncEventHandler {
   private defaultHandler = new DefaultSyncEventHandler();
 
@@ -37,18 +37,19 @@ export class HuobiSyncEventHandler extends DefaultSyncEventHandler {
     });
 
     const asset: AssetReceipt = utils.safeParseJSON(res.succeedData);
-    const supply = '0x' + new BigNumber(asset.supply).toString(16);
-    await this.knex.insert({
-      assetId: asset.id,
-      name: asset.name,
-      symbol: asset.symbol,
-      supply: supply,
-      account: asset.admin,
-      txHash: '',
-      precision: asset.precision,
-    }).into(ASSET);
+    // const supply = utils.toHex(asset.supply);
+    await this.knex
+      .insert({
+        assetId: asset.id,
+        name: asset.name,
+        symbol: asset.symbol,
+        // supply: supply,
+        account: asset.admin,
+        txHash: '',
+        precision: asset.precision,
+      })
+      .into(ASSET);
   };
-
 
   async saveExecutedBlock(
     trx: Knex.Transaction,
@@ -117,17 +118,24 @@ export class HuobiSyncEventHandler extends DefaultSyncEventHandler {
     debug(`${transfers.length} transfers prepared`);
 
     const balances = resolver.getBalances();
+    await this.saveBalances(balances, trx);
+
+    const accounts = resolver.getRelevantAccount();
+    await this.saveAccounts(accounts, trx);
+  }
+
+  private async saveAccounts(accounts: Account[], trx: Knex.Transaction) {
+    for (let account of accounts) {
+      await trx.insert(account).into('account').onDuplicateUpdate('address');
+    }
+  }
+
+  private async saveBalances(balances: Balance[], trx: Knex.Transaction) {
     for (let balance of balances) {
       await trx
         .insert(balance)
         .into(BALANCE)
         .onDuplicateUpdate('address', 'asset_id');
-    }
-
-    const accounts = resolver.getRelevantAccount();
-
-    for (let account of accounts) {
-      await trx.insert(account).into('account').onDuplicateUpdate('address');
     }
   }
 }

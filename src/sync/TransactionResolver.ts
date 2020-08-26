@@ -6,10 +6,13 @@ import {
 import { utils } from '@mutadev/muta-sdk';
 import { Uint64 } from '@mutadev/types';
 import BigNumber from 'bignumber.js';
-import { helper } from '../helpers/AssetHelper';
-import { Account, Asset, Balance, Transfer } from '../types';
+import { Asset } from '../generated/types';
+import { Account, Balance, Transfer } from '../types';
 import { FeeResolver } from './FeeResolver';
+import { context } from './SyncContext';
 
+type WithoutID<T, ID extends string = 'id'> = Omit<T, ID>;
+type NonIDAsset = WithoutID<Asset>;
 type TransactionWithoutOrder = Omit<TransactionModel, 'order'>;
 
 interface MintAssetPayload {
@@ -40,7 +43,7 @@ export class TransactionResolver {
 
   private readonly transfers: Transfer[];
 
-  private readonly assets: Asset[];
+  private readonly assets: NonIDAsset[];
 
   private readonly balances: Balance[];
 
@@ -79,7 +82,7 @@ export class TransactionResolver {
     return Array.from(this.accounts).map((address) => ({ address }));
   }
 
-  getCreatedAssets(): Asset[] {
+  getCreatedAssets(): NonIDAsset[] {
     return this.assets;
   }
 
@@ -95,8 +98,8 @@ export class TransactionResolver {
     this.transfers.push(transfer);
   }
 
-  private enqueueAsset(asset: Asset) {
-    helper.cacheAsset(asset);
+  private enqueueAsset(asset: NonIDAsset) {
+    // assetHelper.cacheAsset(asset);
     this.assets.push(asset);
   }
 
@@ -109,16 +112,12 @@ export class TransactionResolver {
 
     this.balances.push({
       address,
-      assetId: helper.getNativeAssetId(),
-      balance: '0',
+      assetId: context.get('nativeAssetId'),
     });
 
     this.balances.push({
       address,
       assetId,
-      // Since the balance will be affected by complex calculations such as fees,
-      // the balance will be directly obtained on the chain
-      balance: '0',
     });
   }
 
@@ -133,17 +132,13 @@ export class TransactionResolver {
     feeResolver: FeeResolver,
   ): Promise<Transfer> {
     return {
-      asset: utils.toHex(payload.asset_id),
+      asset: payload.asset_id,
       from: from,
       to: payload.to,
       txHash,
       value: utils.toHex(payload.value),
       block: this.height,
       timestamp: this.timestamp,
-      amount: await helper.amountByAssetIdAndValue(
-        payload.asset_id,
-        payload.value,
-      ),
       fee: feeResolver.feeByTxHash(txHash),
     };
   }
@@ -189,24 +184,24 @@ export class TransactionResolver {
       if (method === 'mint') {
         const payload: MintAssetPayload = utils.safeParseJSON(payloadStr);
 
-        this.enqueueTransfer(
-          await this.assembleTransfer(
-            {
-              asset_id: payload.asset_id,
-              to: payload.to,
-              value: payload.amount,
-            },
-            from,
-            txHash,
-            feeResolver,
-          ),
-        );
+        // this.enqueueTransfer(
+        //   await this.assembleTransfer(
+        //     {
+        //       asset_id: payload.asset_id,
+        //       to: payload.to,
+        //       value: payload.amount,
+        //     },
+        //     from,
+        //     txHash,
+        //     feeResolver,
+        //   ),
+        // );
 
         this.enqueueBalance(from, payload.asset_id);
         this.enqueueBalance(payload.to, payload.asset_id);
       }
 
-      if (method === 'burn') {
+      if (method === 'burn' || method === 'relay') {
         const payload: BurnPayload = utils.safeParseJSON(payloadStr);
 
         this.enqueueTransfer(
@@ -223,14 +218,11 @@ export class TransactionResolver {
 
       if (method === 'create_asset') {
         const payload = utils.safeParseJSON(receipt.ret);
-
-        const precision = new BigNumber(payload.precision, 16).toNumber();
-        const supply = utils.toHex(new BigNumber(payload.supply).toString(16));
+        const precision = Number(payload.precision);
         this.enqueueAsset({
           assetId: payload.id,
           name: payload.name,
           symbol: payload.symbol,
-          supply: supply,
           account: from,
           txHash,
           precision,

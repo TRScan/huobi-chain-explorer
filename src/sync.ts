@@ -8,21 +8,24 @@ import {
   ISynchronizerAdapter,
   PollingSynchronizer,
 } from '@muta-extra/synchronizer';
-import { init } from './init';
 import { HuobiSyncEventHandler } from './sync/HuobiSyncEventHandler';
-
-const remoteFetcher = new DefaultRemoteFetcher();
-const localFetcher = new DefaultLocalFetcher();
-const eventHandler: ISyncEventHandlerAdapter = new HuobiSyncEventHandler();
-
-const adapter: ISynchronizerAdapter = {
-  ...localFetcher,
-  ...remoteFetcher,
-  ...eventHandler,
-};
+import { context } from './sync/SyncContext';
 
 async function main() {
-  await init();
+  const service = context.get('assetService');
+  const asset = await service.read.get_native_asset();
+
+  context.set('nativeAssetId', asset.succeedData.id);
+
+  const remoteFetcher = new DefaultRemoteFetcher();
+  const localFetcher = new DefaultLocalFetcher();
+  const eventHandler: ISyncEventHandlerAdapter = new HuobiSyncEventHandler();
+
+  const adapter: ISynchronizerAdapter = {
+    ...localFetcher,
+    ...remoteFetcher,
+    ...eventHandler,
+  };
   new PollingSynchronizer(adapter).run();
 }
 

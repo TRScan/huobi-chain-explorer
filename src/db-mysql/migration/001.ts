@@ -23,9 +23,9 @@ export class HuobiMigration001 extends Migration001 {
 
         table.text('name', 'varchar(255)').notNullable();
 
-        table.specificType('supply', 'varchar(18) NOT NULL');
+        // table.specificType('supply', 'varchar(18) NOT NULL');
 
-        table.integer('precision').defaultTo(0).notNullable();
+        table.integer('precision').notNullable();
 
         table.text('symbol').notNullable();
 
@@ -54,10 +54,10 @@ export class HuobiMigration001 extends Migration001 {
           .specificType('value', 'varchar(18) NOT NULL')
           .comment('original transfer value in hex');
 
-        table
-          .text('amount')
-          .notNullable()
-          .comment('transfer amount with precision');
+        // table
+        //   .text('amount')
+        //   .notNullable()
+        //   .comment('transfer amount with precision');
 
         table
           .integer('block')
@@ -84,7 +84,7 @@ export class HuobiMigration001 extends Migration001 {
           .specificType('asset_id', 'varchar(66) NOT NULL')
           .index('idx_balance_asset_id');
 
-        table.specificType('balance', 'varchar(18) NOT NULL');
+        // table.specificType('balance', 'varchar(18) NOT NULL');
 
         table.unique(['address', 'asset_id'], 'uniq_balance_address_asset_id');
       })
