@@ -173,7 +173,12 @@ export class TransactionResolver {
         const payload = utils.safeParseJSON(payloadStr);
 
         this.enqueueTransfer(
-          await this.assembleTransfer(payload, from, txHash, feeResolver),
+          await this.assembleTransfer(
+            { to: payload.recipient, ...payload },
+            from,
+            txHash,
+            feeResolver,
+          ),
         );
 
         this.enqueueBalance(from, payload.asset_id);
