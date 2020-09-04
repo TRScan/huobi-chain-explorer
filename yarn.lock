@@ -56,10 +56,17 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@muta-extra/common@0.4.0-dev.9":
-  version "0.4.0-dev.9"
-  resolved "https://registry.yarnpkg.com/@muta-extra/common/-/common-0.4.0-dev.9.tgz#d0d576dac1bfb98c15f975199974e4393ae40153"
-  integrity sha512-55hxEij37WpBDVd+gW505ywAhcmmxC+QP6QD+V3AsZW4YxghHnF4unXL8QKmfHvQn3iIDRcrRyClO97TzzVIFg==
+"@muta-extra/apm@0.4.0-dev.11":
+  version "0.4.0-dev.11"
+  resolved "https://registry.yarnpkg.com/@muta-extra/apm/-/apm-0.4.0-dev.11.tgz#720b6ed94a7481ed3c41090139cfbdaaebfee57f"
+  integrity sha512-4VEOtkAPwSuciWipcZx4ipjsbzd9b+cygDe/58BcRSCqUBqGc8AT0+gEwxxq3lbsBsiOENPnEktRLVt9TdkLWw==
+  dependencies:
+    prom-client "^12.0.0"
+
+"@muta-extra/common@0.4.0-dev.11":
+  version "0.4.0-dev.11"
+  resolved "https://registry.yarnpkg.com/@muta-extra/common/-/common-0.4.0-dev.11.tgz#03d26e2ed771d3d54a0262518d8dbf1dd65a822f"
+  integrity sha512-1N/owSpUNRapIeeB+Yk8B4sxts+KTEG7CBk2ezl7LtNG0qYZpSO+cA79FrobKK3aQXeRzSg7uS+79DW0xRY8lA==
   dependencies:
     "@types/debug" "^4.1.5"
     commander "^5.1.0"
@@ -67,24 +74,32 @@
     dotenv "^8.2.0"
     read-pkg-up "^7.0.1"
 
-"@muta-extra/hermit-purple@0.4.0-dev.9":
-  version "0.4.0-dev.9"
-  resolved "https://registry.yarnpkg.com/@muta-extra/hermit-purple/-/hermit-purple-0.4.0-dev.9.tgz#36f6513f82021216b7ccf7ebfbf4d662f06b75c5"
-  integrity sha512-Mf/GEmlJBBHOmJUpDPluLaMYn1RPhtGAwwco122pzclJ7YZGOYxFJ9sguXf1dpmTnSR3dl3SsKEly9egSDY6sQ==
+"@muta-extra/graphql-middlewares@0.4.0-dev.11":
+  version "0.4.0-dev.11"
+  resolved "https://registry.yarnpkg.com/@muta-extra/graphql-middlewares/-/graphql-middlewares-0.4.0-dev.11.tgz#707a96e386b78dc5c7ad4ad7e15059a626a23ef6"
+  integrity sha512-ZHlM9Uj4LYVMTpgCL6P8QLmhzHQaMcvXwcNh66ZX7tIJc7Wx3K+/3oHgEx7XhxiPco9CXlwpbkVnZ5wDiIIAAw==
   dependencies:
-    "@muta-extra/common" "0.4.0-dev.9"
-    "@muta-extra/knex-mysql" "0.4.0-dev.9"
-    "@muta-extra/nexus-schema" "0.4.0-dev.9"
-    "@muta-extra/synchronizer" "0.4.0-dev.9"
+    graphql-query-complexity "^0.6.0"
+
+"@muta-extra/hermit-purple@0.4.0-dev.11":
+  version "0.4.0-dev.11"
+  resolved "https://registry.yarnpkg.com/@muta-extra/hermit-purple/-/hermit-purple-0.4.0-dev.11.tgz#13ba9c145674f59ea8256c7a4fb23b60d975aa71"
+  integrity sha512-vQ9a/ltAAc15wfCaTRhnzpUv2UuwWa6ZRNg1BW6bvfeTxV1X+Ek0pmWe5e5wQ6JEHZ/7BglihAkOohMeA2k7tA==
+  dependencies:
+    "@muta-extra/common" "0.4.0-dev.11"
+    "@muta-extra/graphql-middlewares" "0.4.0-dev.11"
+    "@muta-extra/knex-mysql" "0.4.0-dev.11"
+    "@muta-extra/nexus-schema" "0.4.0-dev.11"
+    "@muta-extra/synchronizer" "0.4.0-dev.11"
     schemats "^3.0.3"
 
-"@muta-extra/knex-mysql@0.4.0-dev.9":
-  version "0.4.0-dev.9"
-  resolved "https://registry.yarnpkg.com/@muta-extra/knex-mysql/-/knex-mysql-0.4.0-dev.9.tgz#c6b49073931a957e24ec9a5fce7623ddc93fe6a0"
-  integrity sha512-gvehymlb59AZBfjeXMu3v3cejp/mmdlZ3CmL1h7sNp5hUFqmFwkX34iKD01752+u6tDK5aTgmVIZj3e2Y8fiPg==
+"@muta-extra/knex-mysql@0.4.0-dev.11":
+  version "0.4.0-dev.11"
+  resolved "https://registry.yarnpkg.com/@muta-extra/knex-mysql/-/knex-mysql-0.4.0-dev.11.tgz#8cbfaf8d76d783f5f5d5d3c81b12b251d090b585"
+  integrity sha512-kpjKk3dT9fPFK2kJvFOCi2tcqTUnq7GXyi51Fidsxnk/5bbi/x5sxOJS8C9fmb3dbuC0PHgvAmAbMqOwItLVlw==
   dependencies:
-    "@muta-extra/common" "0.4.0-dev.9"
-    "@muta-extra/synchronizer" "0.4.0-dev.9"
+    "@muta-extra/common" "0.4.0-dev.11"
+    "@muta-extra/synchronizer" "0.4.0-dev.11"
     "@types/cache-manager" "^2.10.3"
     "@types/lodash" "^4.14.158"
     cache-manager "^3.3.0"
@@ -98,20 +113,21 @@
     node-object-hash "^2.0.0"
     read-pkg-up "^7.0.1"
 
-"@muta-extra/nexus-schema@0.4.0-dev.9":
-  version "0.4.0-dev.9"
-  resolved "https://registry.yarnpkg.com/@muta-extra/nexus-schema/-/nexus-schema-0.4.0-dev.9.tgz#c28d4652f6700fa9af0ecc5c0918ffe15825484b"
-  integrity sha512-+JnAGBbiDbdzH2zu56OB2DH6soNBOoaG3LWrKIUH9yVbfDRrY03YAiIBDLmcJw+ojcBtvGmx2KYu/qnsgFD26Q==
+"@muta-extra/nexus-schema@0.4.0-dev.11":
+  version "0.4.0-dev.11"
+  resolved "https://registry.yarnpkg.com/@muta-extra/nexus-schema/-/nexus-schema-0.4.0-dev.11.tgz#83a7f18ae4b6188145d964f5e0dc22b832e09dff"
+  integrity sha512-Gz3kho9DqThthcHnToCfDK6/CpTBJGqOPh4W37EQ0rdFub575Fd4xg5+RxmJ8/tBGEqjpQBPHXKRRdX6yMt9iQ==
   dependencies:
-    "@muta-extra/common" "0.4.0-dev.9"
+    "@muta-extra/common" "0.4.0-dev.11"
     "@nexus/schema" "^0.15.0"
 
-"@muta-extra/synchronizer@0.4.0-dev.9":
-  version "0.4.0-dev.9"
-  resolved "https://registry.yarnpkg.com/@muta-extra/synchronizer/-/synchronizer-0.4.0-dev.9.tgz#2ded2a6a17f88adcaa59dbee240ed268a41869a9"
-  integrity sha512-mEPR9UYl9bgX8B7bqZpkOajwur6sVLTSyIYLhSpGO/4sPo2dDr5d2X1X7zxZT2pkhXlFkgYB8y9BrR22Fgy47g==
+"@muta-extra/synchronizer@0.4.0-dev.11":
+  version "0.4.0-dev.11"
+  resolved "https://registry.yarnpkg.com/@muta-extra/synchronizer/-/synchronizer-0.4.0-dev.11.tgz#fdee4436683576002b65182ef7dff85c5264146f"
+  integrity sha512-hSGhC67wSuDos1Mc0IEpEyxd+7EiDxx+tuksKm+F+QFLAfgGnPQCezAL+Co1Nn/kM8NCMM+h87nYs7++ErO0Tg==
   dependencies:
-    "@muta-extra/common" "0.4.0-dev.9"
+    "@muta-extra/apm" "0.4.0-dev.11"
+    "@muta-extra/common" "0.4.0-dev.11"
     "@types/bluebird" "^3.5.32"
     "@types/lodash" "^4.14.158"
     "@types/lossless-json" "^1.0.0"
@@ -905,6 +921,11 @@ bindings@^1.5.0:
   integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
   dependencies:
     file-uri-to-path "1.0.0"
+
+bintrees@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bintrees/-/bintrees-1.0.1.tgz#0e655c9b9c2435eaab68bf4027226d2b55a34524"
+  integrity sha1-DmVcm5wkNeqraL9AJyJtK1WjRSQ=
 
 bip39@^3.0.2:
   version "3.0.2"
@@ -1874,6 +1895,13 @@ graphql-markdown@^5.2.0:
     node-fetch "^2.2.0"
     resolve-from "^4.0.0"
 
+graphql-query-complexity@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.6.0.tgz#522f452212eb0ffab66601097251bbf411c3cd11"
+  integrity sha512-xYLLvN7PSeSYtiQ2nR53B7B/C6iGOWVPBrzcpbheVxE78GYdiNZffDRNCoMvYGCOAY0eQTpsnTfwncVszQsOJw==
+  dependencies:
+    lodash.get "^4.4.2"
+
 graphql-request@^1.8.2:
   version "1.8.2"
   resolved "https://registry.npmjs.org/graphql-request/-/graphql-request-1.8.2.tgz#398d10ae15c585676741bde3fc01d5ca948f8fbe"
@@ -2458,6 +2486,11 @@ locate-path@^5.0.0:
   integrity sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==
   dependencies:
     p-locate "^4.1.0"
+
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
 lodash.isplainobject@^4.0.6:
   version "4.0.6"
@@ -3202,6 +3235,13 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
+prom-client@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-12.0.0.tgz#9689379b19bd3f6ab88a9866124db9da3d76c6ed"
+  integrity sha512-JbzzHnw0VDwCvoqf8y1WDtq4wSBAbthMB1pcVI/0lzdqHGJI3KBJDXle70XK+c7Iv93Gihqo0a5LlOn+g8+DrQ==
+  dependencies:
+    tdigest "^0.1.1"
+
 proxy-addr@~2.0.5:
   version "2.0.6"
   resolved "https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.6.tgz#fdc2336505447d3f2f2c638ed272caf614bbb2bf"
@@ -3826,6 +3866,13 @@ tarn@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/tarn/-/tarn-3.0.0.tgz#a4082405216c0cce182b8b4cb2639c52c1e870d4"
   integrity sha512-PKUnlDFODZueoA8owLehl8vLcgtA8u4dRuVbZc92tspDYZixjJL6TqYOmryf/PfP/EBX+2rgNcrj96NO+RPkdQ==
+
+tdigest@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/tdigest/-/tdigest-0.1.1.tgz#2e3cb2c39ea449e55d1e6cd91117accca4588021"
+  integrity sha1-Ljyyw56kSeVdHmzZEReszKRYgCE=
+  dependencies:
+    bintrees "1.0.1"
 
 thenify-all@^1.0.0:
   version "1.6.0"

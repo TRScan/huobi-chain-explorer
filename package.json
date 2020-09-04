@@ -36,7 +36,8 @@
   },
   "homepage": "https://github.com/homura/huobi-chain-api#readme",
   "dependencies": {
-    "@muta-extra/hermit-purple": "0.4.0-dev.9",
+    "@muta-extra/apm": "0.4.0-dev.11",
+    "@muta-extra/hermit-purple": "0.4.0-dev.11",
     "@mutadev/muta-sdk": "0.2.0-rc.0.1",
     "@types/async-cache": "^1.1.0",
     "@types/body-parser": "^1.19.0",
