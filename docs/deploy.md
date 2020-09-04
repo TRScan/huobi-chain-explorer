@@ -153,3 +153,8 @@ npm run start
 # try the API in browser directly
 open http://127.0.0.1:4040
 ```
+
+### Monitor
+
+Config the [Prometheus](https://github.com/homura/hermit-purple-server/blob/develop/packages/apm/resources/prometheus.yml) 
+and [Grafana](https://github.com/homura/hermit-purple-server/blob/develop/packages/apm/resources/grafana.json) to monit explorer metrics
