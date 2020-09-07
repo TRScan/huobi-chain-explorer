@@ -104,35 +104,14 @@ Using the [schema.sql](./schema.sql)
 
 ## Start server and sync(via pm2)
 
-Recommend to use **[pm2](https://pm2.keymetrics.io/)** as the daemon process manager
-
-### Create a `pm2.json` as configuration file
-
-```json
-{
-  "apps": [
-    {
-      "name": "huobi-chain-api",
-      "script": "npm",
-      "args": "start"
-    },
-    {
-      "name": "huobi-chain-sync",
-      "script": "npm",
-      "args": "run sync",
-      "env": {
-        "DEBUG": "muta-extra:*"
-      }
-    }
-  ]
-}
-```
+Recommend to use **[pm2](https://pm2.keymetrics.io/)** as the daemon process manager,
+rename `ecosystem.config.example.js` to `ecosystem.config.js` and edit it
 
 ### Install `pm2` and start it
 
 ```
 npm install pm2 -g
-pm2 start pm2.json
+pm2 start
 ```
 
 Then we would see a table like this
@@ -174,3 +153,8 @@ npm run start
 # try the API in browser directly
 open http://127.0.0.1:4040
 ```
+
+### Monitor
+
+Config the [Prometheus](https://github.com/homura/hermit-purple-server/blob/develop/packages/apm/resources/prometheus.yml) 
+and [Grafana](https://github.com/homura/hermit-purple-server/blob/develop/packages/apm/resources/grafana.json) to monit explorer metrics
