@@ -5,10 +5,15 @@ import {
   TableNames,
 } from '@muta-extra/knex-mysql';
 import { Executed } from '@muta-extra/synchronizer';
-import { utils } from '@mutadev/muta-sdk';
-import { BigNumber } from '@mutadev/shared';
+import { RustToTS } from '@mutadev/service';
+import {
+  AdmissionControlService,
+  AssetService,
+  GovernanceService,
+  KycService,
+} from 'huobi-chain-sdk';
+import { Asset as AssetStruct } from 'huobi-chain-sdk/lib/services/AssetService';
 import { ASSET, BALANCE, TRANSFER } from '../db-mysql/constants';
-import { client } from '../muta';
 import { Account, Balance } from '../types';
 import { FeeResolver } from './FeeResolver';
 import { TransactionResolver } from './TransactionResolver';
@@ -16,27 +21,17 @@ import { TransactionResolver } from './TransactionResolver';
 const debug = logger.debug;
 const info = logger.info;
 
-interface AssetReceipt {
-  id: string;
-  name: string;
-  symbol: string;
-  supply: number | BigNumber;
-  precision: number;
-  admin: string;
-  relayable: boolean;
-}
+type Asset = RustToTS<typeof AssetStruct>;
 
 export class HuobiSyncEventHandler extends DefaultSyncEventHandler {
   private defaultHandler = new DefaultSyncEventHandler();
 
-  onGenesis = async (): Promise<void> => {
-    const res = await client.queryService({
-      serviceName: 'asset',
-      method: 'get_native_asset',
-      payload: '',
-    });
-
-    const asset: AssetReceipt = utils.safeParseJSON(res.succeedData);
+  /**
+   * save the native asset
+   */
+  private async genesisNativeAsset(): Promise<Asset> {
+    const assetData = await new AssetService().read.get_native_asset();
+    const asset = assetData.succeedData;
     // const supply = utils.toHex(asset.supply);
     await this.knex
       .insert({
@@ -49,6 +44,47 @@ export class HuobiSyncEventHandler extends DefaultSyncEventHandler {
         precision: asset.precision,
       })
       .into(ASSET);
+    return asset;
+  }
+
+  private async genesisAddresses(nativeAssetId: string) {
+    const governanceService = new GovernanceService();
+    const admissionControlService = new AdmissionControlService();
+
+    const [
+      minerChargeMap,
+      minerProfitOutlet,
+      admissionAdmin,
+      kycAdmin,
+    ] = await Promise.all([
+      governanceService.read.get_miner_charge_map(),
+      governanceService.read.get_miner_profit_outlet_address(),
+      admissionControlService.read.get_admin(),
+      new KycService().read.get_admin(),
+    ]);
+
+    const addresses: string[] =
+      // governance charge map
+      minerChargeMap.succeedData
+        .flatMap<string>((charge) => [
+          charge.miner_charge_address,
+          charge.address,
+        ])
+        .concat([minerProfitOutlet.succeedData])
+        .concat([minerProfitOutlet.succeedData])
+        .concat([admissionAdmin.succeedData])
+        .concat([kycAdmin.succeedData]);
+
+    const balances = addresses.map<Balance>((address) => ({
+      address,
+      assetId: nativeAssetId,
+    }));
+    await this.knex.transaction((trx) => this.saveBalances(balances, trx));
+  }
+
+  onGenesis = async (): Promise<void> => {
+    const asset = await this.genesisNativeAsset();
+    await this.genesisAddresses(asset.id);
   };
 
   async saveExecutedBlock(
