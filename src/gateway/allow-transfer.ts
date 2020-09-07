@@ -19,7 +19,7 @@ const schema = buildSchema(
 
 export function applyMiddleware(
   app: Express,
-  config: Config = { path: envStr('BYPASS_URL', '/chain') },
+  config: Config = { path: envStr('HERMIT_BYPASS_CHAIN', '/chain') },
 ) {
   app.use(
     config.path,
