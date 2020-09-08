@@ -1,5 +1,5 @@
-#!/usr/bin/env node
-require('@muta-extra/hermit-purple').loadEnvFile();
+// #!/usr/bin/env node
+// require('@muta-extra/hermit-purple').loadEnvFile();
 
 import { applyAPMMiddleware } from '@muta-extra/apm';
 import { envNum } from '@muta-extra/hermit-purple';

@@ -1,5 +1,5 @@
-#!/usr/bin/env node
-require('@muta-extra/hermit-purple').loadEnvFile();
+// #!/usr/bin/env node
+// require('@muta-extra/hermit-purple').loadEnvFile();
 
 import {
   envNum,
