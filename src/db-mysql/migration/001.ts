@@ -19,7 +19,9 @@ export class HuobiMigration001 extends Migration001 {
 
         table.specificType('account', 'varchar(48) NOT NULL');
 
-        table.specificType('asset_id', 'varchar(66) NOT NULL');
+        table
+          .specificType('asset_id', 'varchar(66) NOT NULL')
+          .unique('uniq_asset_asset_id');
 
         table.text('name', 'varchar(255)').notNullable();
 
