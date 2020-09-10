@@ -39,6 +39,7 @@ export class HuobiService implements IHuobiService {
       async filter(args) {
         return helper.findMany<Transfer>(TRANSFER, {
           page: args.pageArgs,
+          orderBy: ['id', 'desc'],
         });
       },
       async findByTxHash(txHash: string) {
