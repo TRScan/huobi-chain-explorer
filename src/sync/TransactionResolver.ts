@@ -188,36 +188,12 @@ export class TransactionResolver {
 
       if (method === 'mint') {
         const payload: MintAssetPayload = utils.safeParseJSON(payloadStr);
-
-        // this.enqueueTransfer(
-        //   await this.assembleTransfer(
-        //     {
-        //       asset_id: payload.asset_id,
-        //       to: payload.to,
-        //       value: payload.amount,
-        //     },
-        //     from,
-        //     txHash,
-        //     feeResolver,
-        //   ),
-        // );
-
         this.enqueueBalance(from, payload.asset_id);
         this.enqueueBalance(payload.to, payload.asset_id);
       }
 
       if (method === 'burn' || method === 'relay') {
         const payload: BurnPayload = utils.safeParseJSON(payloadStr);
-
-        this.enqueueTransfer(
-          await this.assembleTransfer(
-            { to: '', value: payload.amount, asset_id: payload.asset_id },
-            from,
-            txHash,
-            feeResolver,
-          ),
-        );
-
         this.enqueueBalance(from, payload.asset_id);
       }
 
