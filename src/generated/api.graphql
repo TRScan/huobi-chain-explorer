@@ -24,7 +24,7 @@ type Asset {
 
 type AssetAmount {
   amount: String!
-  asset: Asset!
+  asset: Asset
   value: Uint64
 }
 

@@ -143,6 +143,22 @@ export interface Receipt {
 
 }
 
+export namespace SyncLockFields {
+    export type id = number;
+    export type locked = boolean | null;
+    export type version = number | null;
+    export type updatedAt = number | null;
+
+}
+
+export interface SyncLock {
+    id: SyncLockFields.id;
+    locked: SyncLockFields.locked;
+    version: SyncLockFields.version;
+    updatedAt: SyncLockFields.updatedAt;
+
+}
+
 export namespace TransactionFields {
     export type id = number;
     export type block = number;

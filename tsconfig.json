@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["src/generated/types.ts"],
+    "types": ["knex-on-duplicate-update"],
     "baseUrl": "."
   },
 

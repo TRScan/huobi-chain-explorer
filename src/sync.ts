@@ -3,13 +3,18 @@
 
 import { applyAPMMiddleware } from '@muta-extra/apm';
 import { envNum } from '@muta-extra/hermit-purple';
-import { DefaultLocalFetcher } from '@muta-extra/knex-mysql';
+import {
+  DefaultLocalFetcher,
+  DefaultLocker,
+  getKnexInstance,
+} from '@muta-extra/knex-mysql';
 import {
   DefaultRemoteFetcher,
   ISyncEventHandlerAdapter,
   ISynchronizerAdapter,
   PollingSynchronizer,
 } from '@muta-extra/synchronizer';
+import { Client } from '@mutadev/muta-sdk';
 import express from 'express';
 import { HuobiSyncEventHandler } from './sync/HuobiSyncEventHandler';
 import { context } from './sync/SyncContext';
@@ -29,7 +34,11 @@ async function main() {
     ...remoteFetcher,
     ...eventHandler,
   };
-  new PollingSynchronizer(adapter).run();
+  new PollingSynchronizer({
+    adapter,
+    client: new Client(),
+    locker: new DefaultLocker(getKnexInstance()),
+  }).run();
 
   const port = envNum('HERMIT_PORT', 0);
   if (port) {
