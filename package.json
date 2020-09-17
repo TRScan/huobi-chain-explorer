@@ -10,6 +10,7 @@
     "sync": "dotenv -- node dist/sync",
     "clean": "rm -rf dist",
     "build": "npm -s run clean && npm -s run generate && tsc --skipLibCheck && ts-node src/scripts/build.ts",
+    "transpile": "npm -s run clean && tsc --allowJs --skipLibCheck",
     "generate": "npm run generate:mysql-schemats && npm run generate:nexus",
     "generate:docs": "graphql-markdown --heading-level 2 src/generated/api.graphql > docs/schema.md",
     "generate:nexus": "dotenv -- ts-node --transpile-only src/scripts/make-schema-types.ts",
