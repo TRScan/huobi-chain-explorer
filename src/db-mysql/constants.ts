@@ -1,9 +1,9 @@
 /* custom table name */
 
-export const ASSET = 'asset';
+export const ASSET = 't_asset';
 
-export const TRANSFER = 'transfer';
+export const TRANSFER = 't_transfer';
 
-export const BALANCE = 'balance';
+export const BALANCE = 't_balance';
 
-export const ACCOUNT = 'account';
+export const ACCOUNT = 't_account';

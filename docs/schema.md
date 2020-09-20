@@ -7,6 +7,7 @@
   * [Objects](#objects)
     * [Account](#account)
     * [Asset](#asset)
+    * [AssetAmount](#assetamount)
     * [Balance](#balance)
     * [Block](#block)
     * [Event](#event)
@@ -285,6 +286,36 @@ The **short** name of this asset
 </tbody>
 </table>
 
+#### AssetAmount
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>amount</strong></td>
+<td valign="top"><a href="#string">String</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>asset</strong></td>
+<td valign="top"><a href="#asset">Asset</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>value</strong></td>
+<td valign="top"><a href="#uint64">Uint64</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
 #### Balance
 
 <table>
@@ -303,9 +334,16 @@ The **short** name of this asset
 <td></td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>amount</strong></td>
+<td colspan="2" valign="top"><strong>amount</strong> ⚠️</td>
 <td valign="top"><a href="#string">String</a>!</td>
-<td></td>
+<td>
+<p>⚠️ <strong>DEPRECATED</strong></p>
+<blockquote>
+
+Please replace with `assetAmount`
+
+</blockquote>
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>asset</strong></td>
@@ -313,12 +351,23 @@ The **short** name of this asset
 <td></td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>balance</strong></td>
+<td colspan="2" valign="top"><strong>assetAmount</strong></td>
+<td valign="top"><a href="#assetamount">AssetAmount</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>balance</strong> ⚠️</td>
 <td valign="top"><a href="#uint64">Uint64</a>!</td>
 <td>
 
 Uint64 balance
 
+<p>⚠️ <strong>DEPRECATED</strong></p>
+<blockquote>
+
+Please replace with `assetAmount`
+
+</blockquote>
 </td>
 </tr>
 </tbody>
@@ -662,13 +711,25 @@ The transaction hash
 </thead>
 <tbody>
 <tr>
-<td colspan="2" valign="top"><strong>amount</strong></td>
+<td colspan="2" valign="top"><strong>amount</strong> ⚠️</td>
 <td valign="top"><a href="#string">String</a>!</td>
-<td></td>
+<td>
+<p>⚠️ <strong>DEPRECATED</strong></p>
+<blockquote>
+
+Please replace with `assetAmount`
+
+</blockquote>
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>asset</strong></td>
 <td valign="top"><a href="#asset">Asset</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>assetAmount</strong></td>
+<td valign="top"><a href="#assetamount">AssetAmount</a>!</td>
 <td></td>
 </tr>
 <tr>
@@ -715,9 +776,16 @@ A datetime string format as UTC string
 <td></td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>value</strong></td>
+<td colspan="2" valign="top"><strong>value</strong> ⚠️</td>
 <td valign="top"><a href="#uint64">Uint64</a>!</td>
-<td></td>
+<td>
+<p>⚠️ <strong>DEPRECATED</strong></p>
+<blockquote>
+
+Please replace with `assetAmount`
+
+</blockquote>
+</td>
 </tr>
 </tbody>
 </table>

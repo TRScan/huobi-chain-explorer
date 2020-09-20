@@ -37,8 +37,8 @@
   },
   "homepage": "https://github.com/homura/huobi-chain-api#readme",
   "dependencies": {
-    "@muta-extra/apm": "0.4.0-dev.14",
-    "@muta-extra/hermit-purple": "0.4.0-dev.14",
+    "@muta-extra/apm": "0.4.0-dev.15",
+    "@muta-extra/hermit-purple": "0.4.0-dev.15",
     "@mutadev/muta-sdk": "0.2.0-rc.2",
     "@types/async-cache": "^1.1.0",
     "@types/body-parser": "^1.19.0",
@@ -57,6 +57,7 @@
     "lru-cache": "^5.1.1"
   },
   "devDependencies": {
+    "@homura/schemats": "^3.1.0",
     "@types/ncp": "^2.0.4",
     "cross-env": "^7.0.2",
     "dotenv-cli": "^3.1.0",
@@ -64,7 +65,6 @@
     "ncp": "^2.0.0",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
-    "schemats": "^3.0.3",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },

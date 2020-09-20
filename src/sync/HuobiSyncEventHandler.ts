@@ -13,7 +13,7 @@ import {
   KycService,
 } from 'huobi-chain-sdk';
 import { Asset as AssetStruct } from 'huobi-chain-sdk/lib/services/AssetService';
-import { ASSET, BALANCE, TRANSFER } from '../db-mysql/constants';
+import { ACCOUNT, ASSET, BALANCE, TRANSFER } from '../db-mysql/constants';
 import { Account, Balance } from '../types';
 import { FeeResolver } from './FeeResolver';
 import { TransactionResolver } from './TransactionResolver';
@@ -96,7 +96,7 @@ export class HuobiSyncEventHandler extends DefaultSyncEventHandler {
 
     const transactions = executed.getTransactions();
     const feeResolver = new FeeResolver(executed.getEvents());
-    trx.batchInsert(
+    await trx.batchInsert(
       TableNames.TRANSACTION,
       transactions.map((tx) => ({
         ...tx,
@@ -162,7 +162,7 @@ export class HuobiSyncEventHandler extends DefaultSyncEventHandler {
 
   private async saveAccounts(accounts: Account[], trx: Knex.Transaction) {
     for (let account of accounts) {
-      await trx.insert(account).into('account').onDuplicateUpdate('address');
+      await trx.insert(account).into(ACCOUNT).onDuplicateUpdate('address');
     }
   }
 

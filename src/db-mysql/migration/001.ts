@@ -1,4 +1,5 @@
-import { Migration001 } from '@muta-extra/hermit-purple';
+import { enhanceBuilder, Migration001 } from '@muta-extra/hermit-purple';
+import { TableNames } from '@muta-extra/knex-mysql';
 
 import { ACCOUNT, ASSET, BALANCE, TRANSFER } from '../constants';
 
@@ -10,51 +11,48 @@ export class HuobiMigration001 extends Migration001 {
   up() {
     return super
       .up()
-      .alterTable('transaction', (table) => {
-        table.specificType('fee', 'varchar(18) NOT NULL');
-        table.specificType('timestamp', 'varchar(18) NOT NULL');
-      })
-      .createTable(ASSET, (table) => {
-        table.increments('id');
-
-        table.specificType('account', 'varchar(48) NOT NULL');
+      .alterTable(TableNames.TRANSACTION, (table) => {
+        table
+          .specificType('fee', 'varchar(18) NOT NULL')
+          .notNullable()
+          .defaultTo('')
+          .comment('transaction fee');
 
         table
-          .specificType('asset_id', 'varchar(66) NOT NULL')
-          .unique('uniq_asset_asset_id');
+          .specificType('f_timestamp', 'varchar(18) NOT NULL')
+          .notNullable()
+          .defaultTo('')
+          .comment('mined time');
+      })
+      .createTable(ASSET, (rawBuilder) => {
+        const table = enhanceBuilder(rawBuilder);
 
-        table.text('name', 'varchar(255)').notNullable();
+        table.address('account');
+
+        table.hash('asset_id').unique('uniq_asset_asset_id');
+
+        table.unfixedText('name');
 
         // table.specificType('supply', 'varchar(18) NOT NULL');
 
-        table.integer('precision').notNullable();
+        table.integer('precision').notNullable().comment('asset precision');
 
-        table.text('symbol').notNullable();
+        table.unfixedText('symbol');
 
-        table.specificType('tx_hash', 'varchar(66) NOT NULL');
+        table.hash('tx_hash').comment('link to transaction tx_hash');
       })
-      .createTable(TRANSFER, (table) => {
-        table.bigIncrements('id');
+      .createTable(TRANSFER, (rawBuilder) => {
+        const table = enhanceBuilder(rawBuilder, { bigIncrements: true });
 
-        table
-          .specificType('asset', 'varchar(66) NOT NULL')
-          .index('idx_transfer_asset');
+        table.hash('asset').index('idx_transfer_asset');
 
-        table
-          .specificType('from', 'varchar(48) NOT NULL')
-          .index('idx_transfer_from');
+        table.address('from').index('idx_transfer_from');
 
-        table
-          .specificType('to', 'varchar(48) NOT NULL')
-          .index('idx_transfer_to');
+        table.address('to').index('idx_transfer_to');
 
-        table
-          .specificType('tx_hash', 'varchar(66) NOT NULL')
-          .index('idx_transfer_tx_hash');
+        table.hash('tx_hash').index('idx_transfer_tx_hash');
 
-        table
-          .specificType('value', 'varchar(18) NOT NULL')
-          .comment('original transfer value in hex');
+        table.u64('value');
 
         // table
         //   .text('amount')
@@ -69,33 +67,27 @@ export class HuobiMigration001 extends Migration001 {
 
         table
           .specificType('timestamp', 'varchar(18) NOT NULL')
-          .comment('Block timestamp');
+          .comment('mined timestamp');
 
         table
           .specificType('fee', 'varchar(18) NOT NULL')
           .comment('transfer fee');
       })
-      .createTable(BALANCE, (table) => {
-        table.bigIncrements('id');
+      .createTable(BALANCE, (rawBuilder) => {
+        const table = enhanceBuilder(rawBuilder, { bigIncrements: true });
 
-        table
-          .specificType('address', 'varchar(48) NOT NULL')
-          .index('idx_balance_address');
+        table.address('address').index('idx_balance_address');
 
-        table
-          .specificType('asset_id', 'varchar(66) NOT NULL')
-          .index('idx_balance_asset_id');
+        table.hash('asset_id').index('idx_balance_asset_id');
 
         // table.specificType('balance', 'varchar(18) NOT NULL');
 
         table.unique(['address', 'asset_id'], 'uniq_balance_address_asset_id');
       })
-      .createTable(ACCOUNT, (table) => {
-        table.bigIncrements('id');
+      .createTable(ACCOUNT, (rawBuilder) => {
+        const table = enhanceBuilder(rawBuilder);
 
-        table
-          .specificType('address', 'varchar(48) NOT NULL')
-          .unique('uniq_account_address');
+        table.address('address').unique('uniq_account_address');
       });
   }
 

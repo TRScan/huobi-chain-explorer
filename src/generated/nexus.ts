@@ -141,17 +141,17 @@ export interface NexusGenFieldTypes {
     ret: string | null; // String
   }
   Transaction: { // field return type
-    block: number; // Int!
+    blockHeight: number; // Int!
     cyclesLimit: NexusGenScalars['Uint64']; // Uint64!
     cyclesPrice: NexusGenScalars['Uint64']; // Uint64!
     fee: NexusGenScalars['Uint64']; // Uint64!
     method: string; // String!
     nonce: NexusGenScalars['Hash']; // Hash!
-    order: number; // Int!
     payload: string; // String!
     pubkey: NexusGenScalars['Bytes']; // Bytes!
     receipt: NexusGenRootTypes['Receipt'] | null; // Receipt
     sender: NexusGenScalars['Address']; // Address!
+    sequence: number; // Int!
     serviceName: string; // String!
     signature: NexusGenScalars['Bytes']; // Bytes!
     timestamp: NexusGenScalars['Timestamp']; // Timestamp!

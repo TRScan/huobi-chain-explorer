@@ -54,7 +54,7 @@ export interface Balance {
 export namespace BlockFields {
     export type id = number;
     export type height = number | null;
-    export type execHeight = number;
+    export type execHeight = number | null;
     export type blockHash = string;
     export type orderRoot = string;
     export type prevHash = string;
@@ -107,7 +107,7 @@ export interface BlockValidator {
 
 export namespace EventFields {
     export type id = number;
-    export type data = string;
+    export type data = string | null;
     export type txHash = string;
     export type service = string;
     export type name = string;
@@ -125,17 +125,17 @@ export interface Event {
 
 export namespace ReceiptFields {
     export type id = number;
-    export type block = number;
+    export type blockHeight = number | null;
     export type cyclesUsed = string;
-    export type isError = boolean;
-    export type ret = string;
+    export type isError = boolean | null;
+    export type ret = string | null;
     export type txHash = string;
 
 }
 
 export interface Receipt {
     id: ReceiptFields.id;
-    block: ReceiptFields.block;
+    blockHeight: ReceiptFields.blockHeight;
     cyclesUsed: ReceiptFields.cyclesUsed;
     isError: ReceiptFields.isError;
     ret: ReceiptFields.ret;
@@ -145,7 +145,7 @@ export interface Receipt {
 
 export namespace SyncLockFields {
     export type id = number;
-    export type locked = boolean | null;
+    export type isLocked = boolean | null;
     export type version = number | null;
     export type updatedAt = number | null;
 
@@ -153,7 +153,7 @@ export namespace SyncLockFields {
 
 export interface SyncLock {
     id: SyncLockFields.id;
-    locked: SyncLockFields.locked;
+    isLocked: SyncLockFields.isLocked;
     version: SyncLockFields.version;
     updatedAt: SyncLockFields.updatedAt;
 
@@ -161,15 +161,15 @@ export interface SyncLock {
 
 export namespace TransactionFields {
     export type id = number;
-    export type block = number;
+    export type blockHeight = number;
     export type chainId = string;
     export type cyclesLimit = string;
     export type cyclesPrice = string;
     export type sender = string;
     export type method = string;
     export type nonce = string;
-    export type order = number | null;
-    export type payload = string;
+    export type sequence = number | null;
+    export type payload = string | null;
     export type pubkey = string;
     export type serviceName = string;
     export type signature = string;
@@ -182,14 +182,14 @@ export namespace TransactionFields {
 
 export interface Transaction {
     id: TransactionFields.id;
-    block: TransactionFields.block;
+    blockHeight: TransactionFields.blockHeight;
     chainId: TransactionFields.chainId;
     cyclesLimit: TransactionFields.cyclesLimit;
     cyclesPrice: TransactionFields.cyclesPrice;
     sender: TransactionFields.sender;
     method: TransactionFields.method;
     nonce: TransactionFields.nonce;
-    order: TransactionFields.order;
+    sequence: TransactionFields.sequence;
     payload: TransactionFields.payload;
     pubkey: TransactionFields.pubkey;
     serviceName: TransactionFields.serviceName;
