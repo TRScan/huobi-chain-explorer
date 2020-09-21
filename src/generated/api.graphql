@@ -118,7 +118,7 @@ type Receipt {
 scalar Timestamp
 
 type Transaction {
-  block: Int!
+  blockHeight: Int!
 
   """Cycles price, similar to the `gasLimit` in eth"""
   cyclesLimit: Uint64!
@@ -132,7 +132,6 @@ type Transaction {
 
   """A random 32 bytes, the `nonce` in Muta is difference with Ethereum"""
   nonce: Hash!
-  order: Int!
 
   """Represents what `payload` of the transaction called method"""
   payload: String!
@@ -141,6 +140,7 @@ type Transaction {
   pubkey: Bytes!
   receipt: Receipt
   sender: Address!
+  sequence: Int!
 
   """Represents what `service` does the transaction called """
   serviceName: String!
@@ -157,7 +157,7 @@ type Transfer {
   amount: String! @deprecated(reason: "Please replace with `assetAmount`")
   asset: Asset
   assetAmount: AssetAmount!
-  block: Int!
+  blockHeight: Int!
 
   """transaction fee"""
   fee: Uint64!
