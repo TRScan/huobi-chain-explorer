@@ -203,12 +203,12 @@ export interface Transaction {
 
 export namespace TransferFields {
     export type id = number;
-    export type asset = string;
+    export type assetId = string;
     export type from = string;
     export type to = string;
     export type txHash = string;
     export type value = string;
-    export type block = number;
+    export type blockHeight = number;
     export type timestamp = string;
     export type fee = string;
 
@@ -216,12 +216,12 @@ export namespace TransferFields {
 
 export interface Transfer {
     id: TransferFields.id;
-    asset: TransferFields.asset;
+    assetId: TransferFields.assetId;
     from: TransferFields.from;
     to: TransferFields.to;
     txHash: TransferFields.txHash;
     value: TransferFields.value;
-    block: TransferFields.block;
+    blockHeight: TransferFields.blockHeight;
     timestamp: TransferFields.timestamp;
     fee: TransferFields.fee;
 

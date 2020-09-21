@@ -49,7 +49,7 @@ export class HuobiService implements IHuobiService {
       async filterByBlockHeight(args) {
         return helper.findMany<Transfer>(TRANSFER, {
           page: args.pageArgs,
-          where: { block: args.blockHeight },
+          where: { blockHeight: args.blockHeight },
           orderBy: ['id', 'desc'],
         });
       },
@@ -57,7 +57,7 @@ export class HuobiService implements IHuobiService {
       async filterByAssetId(args) {
         return helper.findMany<Transfer>(TRANSFER, {
           page: args.pageArgs,
-          where: { asset: args.assetId },
+          where: { assetId: args.assetId },
           orderBy: ['id', 'desc'],
         });
       },

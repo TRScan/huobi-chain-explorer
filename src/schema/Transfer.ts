@@ -5,13 +5,13 @@ import { pageArgs } from './common';
 export const Transfer = schema.objectType({
   name: 'Transfer',
   definition(t) {
-    t.int('block');
+    t.int('blockHeight');
 
     t.field('timestamp', {
       type: 'Timestamp',
       description: 'A datetime string format as UTC string',
       async resolve(parent, args, ctx) {
-        const block = await ctx.blockService.findByHeight(parent.block);
+        const block = await ctx.blockService.findByHeight(parent.blockHeight);
         return block?.timestamp ?? '';
       },
     });
@@ -41,14 +41,14 @@ export const Transfer = schema.objectType({
     t.string('amount', {
       deprecation: 'Please replace with `assetAmount`',
       resolve(parent, args, ctx) {
-        return ctx.assetService.getAmount(parent.asset, parent.value);
+        return ctx.assetService.getAmount(parent.assetId, parent.value);
       },
     });
 
     t.field('assetAmount', {
       type: 'AssetAmount',
       resolve(parent) {
-        return { assetId: parent.asset, value: parent.value };
+        return { assetId: parent.assetId, value: parent.value };
       },
     });
 
@@ -57,7 +57,7 @@ export const Transfer = schema.objectType({
       nullable: true,
       //@ts-ignore
       resolve(parent, args, ctx) {
-        return ctx.assetService.findByAssetId(parent.asset);
+        return ctx.assetService.findByAssetId(parent.assetId);
       },
     });
   },

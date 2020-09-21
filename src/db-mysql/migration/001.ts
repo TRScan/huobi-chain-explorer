@@ -44,7 +44,7 @@ export class HuobiMigration001 extends Migration001 {
       .createTable(TRANSFER, (rawBuilder) => {
         const table = enhanceBuilder(rawBuilder, { bigIncrements: true });
 
-        table.hash('asset').index('idx_transfer_asset');
+        table.hash('asset_id').index('idx_transfer_asset');
 
         table.address('from').index('idx_transfer_from');
 
@@ -60,7 +60,7 @@ export class HuobiMigration001 extends Migration001 {
         //   .comment('transfer amount with precision');
 
         table
-          .integer('block')
+          .integer('block_height')
           .index('idx_transfer_block')
           .notNullable()
           .comment('The block height');

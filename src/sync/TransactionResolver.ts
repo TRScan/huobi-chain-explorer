@@ -132,12 +132,12 @@ export class TransactionResolver {
     feeResolver: FeeResolver,
   ): Promise<Transfer> {
     return {
-      asset: payload.asset_id,
+      assetId: payload.asset_id,
       from: from,
       to: payload.to,
       txHash,
       value: utils.toHex(payload.value),
-      block: this.height,
+      blockHeight: this.height,
       timestamp: this.timestamp,
       fee: feeResolver.feeByTxHash(txHash),
     };

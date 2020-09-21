@@ -161,7 +161,7 @@ export interface NexusGenFieldTypes {
     amount: string; // String!
     asset: NexusGenRootTypes['Asset'] | null; // Asset
     assetAmount: NexusGenRootTypes['AssetAmount']; // AssetAmount!
-    block: number; // Int!
+    blockHeight: number; // Int!
     fee: NexusGenScalars['Uint64']; // Uint64!
     from: NexusGenScalars['Address']; // Address!
     timestamp: NexusGenScalars['Timestamp']; // Timestamp!
