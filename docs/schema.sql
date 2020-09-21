@@ -87,17 +87,17 @@ alter table t_asset
 add unique uniq_asset_asset_id(asset_id);
 create table t_transfer (
     id bigint unsigned not null auto_increment primary key comment 'id',
-    asset varchar(66) not null default '' comment 'hash value formatted as 66 length hex',
+    asset_id varchar(66) not null default '' comment 'hash value formatted as 66 length hex',
     f_from varchar(68) not null default '' comment 'an bech32 encoded address value',
     f_to varchar(68) not null default '' comment 'an bech32 encoded address value',
     tx_hash varchar(66) not null default '' comment 'hash value formatted as 66 length hex',
     f_value varchar(18) not null default '' comment 'a u64 value formatted as 18 length hex',
-    f_block int not null comment 'The block height',
+    block_height int not null comment 'The block height',
     f_timestamp varchar(18) NOT NULL comment 'mined timestamp',
     fee varchar(18) NOT NULL comment 'transfer fee'
 ) default character set utf8 engine = InnoDB;
 alter table t_transfer
-add index idx_transfer_asset(asset);
+add index idx_transfer_asset(asset_id);
 alter table t_transfer
 add index idx_transfer_from(f_from);
 alter table t_transfer
@@ -105,7 +105,7 @@ add index idx_transfer_to(f_to);
 alter table t_transfer
 add index idx_transfer_tx_hash(tx_hash);
 alter table t_transfer
-add index idx_transfer_block(f_block);
+add index idx_transfer_block(block_height);
 create table t_balance (
     id bigint unsigned not null auto_increment primary key comment 'id',
     address varchar(68) not null default '' comment 'an bech32 encoded address value',
